@@ -40,4 +40,12 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    // Converter for JSON
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    //Room
+    implementation ("androidx.room:room-runtime:2.6.1")
+    annotationProcessor ("androidx.room:room-compiler:2.6.1")
+
 }
