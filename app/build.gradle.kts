@@ -48,4 +48,11 @@ dependencies {
     implementation ("androidx.room:room-runtime:2.6.1")
     annotationProcessor ("androidx.room:room-compiler:2.6.1")
 
+    //firebase
+    implementation ("com.google.firebase:firebase-auth:21.0.1")
+
+    //lottie
+    implementation ("com.airbnb.android:lottie:4.1.0")
+    implementation ("com.google.android.material:material:1.5.0")
+
 }
