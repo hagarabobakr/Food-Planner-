@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -49,7 +50,8 @@ dependencies {
     annotationProcessor ("androidx.room:room-compiler:2.6.1")
 
     //firebase
-    implementation ("com.google.firebase:firebase-auth:21.0.1")
+    implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
+    implementation("com.google.firebase:firebase-analytics")
 
     //lottie
     implementation ("com.airbnb.android:lottie:4.1.0")
