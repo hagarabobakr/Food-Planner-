@@ -4,6 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class MealsItem{
 
+
+	@SerializedName("strMealThumb")// Assuming this is the correct field for image URLprivate
+	 String strMealThumb;
+
 	@SerializedName("strDescription")
 	private String strDescription;
 
@@ -30,5 +34,11 @@ public class MealsItem{
 
 	public String getIdIngredient(){
 		return idIngredient;
+	}
+
+
+
+	public String getStrMealThumb(){
+		return strMealThumb;
 	}
 }
