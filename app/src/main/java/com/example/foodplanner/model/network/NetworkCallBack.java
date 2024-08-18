@@ -10,4 +10,8 @@ public interface NetworkCallBack{
     public void onRandumMealFailureResult(String errorMsg);
     public void onCatigoryItemsSuccessResult(List<CategoriesItem> categoriesItems);
     public void onCatigoryItemsFailureResult(String errorMsg);
+    public void onMealDetailsSuccessResult(List<MealsItem> meals);
+    public void onMealDetailsFailureResult(String message);
+
+    public void onGetCountrySuccessResult(List<MealsItem> meals);
 }

@@ -43,8 +43,8 @@
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_margin="15dp"
+                android:layout_height="1dp"
+                android:layout_margin="25dp"
                 />
 
             <TextView
@@ -64,8 +64,8 @@
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_margin="15dp"
+                android:layout_height="1dp"
+                android:layout_margin="25dp"
                 />
 
             <TextView
@@ -81,6 +81,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                />
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="25dp"
+                />
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                android:gravity="center_horizontal"
                 />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

@@ -13,6 +13,8 @@ import com.example.foodplanner.model.data.CategoriesItem;
 import com.example.foodplanner.model.data.MealsItem;
 import com.example.foodplanner.model.network.RetrofitClient;
 import com.example.foodplanner.presenter.home.HomePresenter;
+import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,7 @@ public class HomeActivity extends AppCompatActivity implements OnRecipeClickList
     private static final String TAG = "Home Activity";
     private RecyclerView randomMealsRecyclerView;
     private RecyclerView categoriesRecyclerView;
+    private ChipGroup chipGroup;
 
     private HomePresenter presenter;
 
@@ -36,8 +39,8 @@ public class HomeActivity extends AppCompatActivity implements OnRecipeClickList
         setContentView(R.layout.activity_home );
         // Initialize RecyclerViews
         randomMealsRecyclerView = findViewById(R.id.recycler_random_meals);
-
         categoriesRecyclerView = findViewById(R.id.recycler_categories);
+        chipGroup = findViewById(R.id.chipGroup);
         // Setup LayoutManagers
         randomMealsLayoutManager =new LinearLayoutManager(this);
         randomMealsLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
@@ -55,11 +58,12 @@ public class HomeActivity extends AppCompatActivity implements OnRecipeClickList
         presenter = new HomePresenter(this, RetrofitClient.getRetrofitInstance());
         presenter.getRandumMeal();
         presenter.getCatigoryIteams();
+        presenter.getCountries();
     }
 
     @Override
     public void onRecipeClickListner(MealsItem meal) {
-
+        presenter.getMealDetails(meal.getIdMeal());
     }
 
     @Override
@@ -71,8 +75,6 @@ public class HomeActivity extends AppCompatActivity implements OnRecipeClickList
 
     @Override
     public void showPopularMeals(List<MealsItem> meals) {
-
-
 
     }
 
@@ -87,6 +89,27 @@ public class HomeActivity extends AppCompatActivity implements OnRecipeClickList
     @Override
     public void showError(String message) {
         Toast.makeText(this,message,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showMealDetails(MealsItem mealsItem) {
+      //Todo
+    }
+
+    @Override
+    public void showChips(List<String> areas) {
+        chipGroup.removeAllViews();
+        for (String area : areas) {
+            Chip chip = new Chip(this);
+            chip.setText(area);
+            chip.setTextColor(R.color.chip_ripple_color);
+            chip.setRippleColorResource(R.color.blue);
+            chip.setChipStrokeColorResource(R.color.blue);
+            chip.setElevation(10);
+            chip.setChipBackgroundColorResource(R.color.white);
+            chipGroup.addView(chip);
+
+        }
     }
 
     @Override

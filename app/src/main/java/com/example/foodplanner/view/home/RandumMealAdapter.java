@@ -45,7 +45,7 @@ public class RandumMealAdapter extends RecyclerView.Adapter<RandumMealAdapter.Me
                 .error(R.drawable.error_image)
                 .into(holder.imageView);
 
-        holder.txtView.setText(meal.strDescription);
+        holder.txtView.setText(meal.getStrMeal());
         holder.itemView.setOnClickListener(v -> {
             if (listner != null) {
                 listner.onRecipeClickListner(meal);

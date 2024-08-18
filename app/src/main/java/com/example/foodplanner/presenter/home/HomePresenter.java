@@ -6,6 +6,7 @@ import com.example.foodplanner.model.network.NetworkCallBack;
 import com.example.foodplanner.model.network.RetrofitClient;
 import com.example.foodplanner.view.home.HomeView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomePresenter implements NetworkCallBack {
@@ -23,6 +24,10 @@ public class HomePresenter implements NetworkCallBack {
     }
     public void getCatigoryIteams(){
         retrofitClient.makeGetCatigoryItemsNetworkCall(this);
+    }
+    public void getMealDetails(String id){retrofitClient.makeGetMealDetailsNetworkCall(this,id);}
+    public void getCountries(){
+        retrofitClient.makeGetCountryNetworkCall(this);
     }
 
 
@@ -46,5 +51,30 @@ public class HomePresenter implements NetworkCallBack {
     @Override
     public void onCatigoryItemsFailureResult(String errorMsg) {
         view.showError(errorMsg);
+    }
+
+    @Override
+    public void onMealDetailsSuccessResult(List<MealsItem> meals) {
+        if (meals != null && !meals.isEmpty()) {
+            view.showMealDetails(meals.get(0));
+        } else {
+            view.showError("No meal details found");
+        }
+    }
+
+
+
+    @Override
+    public void onMealDetailsFailureResult(String message) {
+        view.showError(message);
+    }
+
+    @Override
+    public void onGetCountrySuccessResult(List<MealsItem> meals) {
+        List<String> areas = new ArrayList<>();
+        for (MealsItem meal : meals) {
+            areas.add(meal.getStrArea());
+        }
+        view.showChips(areas);
     }
 }

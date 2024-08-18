@@ -11,4 +11,8 @@ public interface HomeView {
     void showPopularMeals(List<MealsItem> meals);
     void showCategories(List<CategoriesItem> categories);
     void showError(String message);
+
+    void showMealDetails(MealsItem mealsItem);
+
+    void showChips(List<String> areas);
 }

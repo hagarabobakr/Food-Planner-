@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#E4E5E6</color>
+    <color name="dark_gray">#E4E5E6</color>
     <color name="blue">#2B678C</color>
     <color name="havan">#F29E6D</color>
     <color name="dark_havan">#F2785C</color>
@@ -11,6 +12,11 @@
     <color name="my_light_primary_variant">#3F51B5</color>
     <color name="divider_color">#BDBDBD</color>
     <color name="my_light_secondary">#F29E6D</color>
+    //chip
+    <color name="chip_background_color">#FF6200EE</color>
+    <color name="chip_ripple_color">#33FFFFFF</color>
+    <color name="chip_stroke_color">#FF6200EE</color>
+    <color name="chip_text_color">#FFFFFF</color>
     //dark
     <color name="my_dark_primary">#141B45</color>
     <color name="my_dark_primary_variant">#293DAC</color>

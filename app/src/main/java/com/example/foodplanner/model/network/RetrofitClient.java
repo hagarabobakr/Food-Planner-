@@ -3,6 +3,8 @@ package com.example.foodplanner.model.network;
 import android.util.Log;
 
 import com.example.foodplanner.model.data.CategoryResponse;
+import com.example.foodplanner.model.data.CountryResponse;
+import com.example.foodplanner.model.data.MealDetailResponse;
 import com.example.foodplanner.model.data.MealResponse;
 
 import okhttp3.OkHttpClient;
@@ -81,6 +83,47 @@ public class RetrofitClient {
             }
         });
     }
+    public void makeGetMealDetailsNetworkCall(NetworkCallBack networkCallBack,String id){
+        Call<MealDetailResponse> call = mealApi.getMealDetails(id);
+        call.enqueue(new Callback<MealDetailResponse>() {
+            @Override
+            public void onResponse(Call<MealDetailResponse> call, Response<MealDetailResponse> response) {
+                if(response.isSuccessful()&& response.body() != null){
+                    Log.i(TAG ,"onResponse MealDetailResponse: CallBack "+response.body().getMeals());
+                   networkCallBack.onMealDetailsSuccessResult(response.body().getMeals());
+                }else {
+                    networkCallBack.onMealDetailsFailureResult("No details found");
+                }
+            }
 
+            @Override
+            public void onFailure(Call<MealDetailResponse> call, Throwable throwable) {
+                Log.i(TAG ,"onFailureeee MealDetailResponse: CallBack ");
+                networkCallBack.onMealDetailsFailureResult(throwable.getMessage());
+                throwable.printStackTrace();
+            }
+        });
+    }
 
+    public void makeGetCountryNetworkCall (NetworkCallBack networkCallback){
+        Call<CountryResponse> call = mealApi.getCountries();
+        call.enqueue(new Callback<CountryResponse>() {
+            @Override
+            public void onResponse(Call<CountryResponse> call, Response<CountryResponse> response) {
+                if(response.isSuccessful()){
+                    Log.i(TAG ,"onResponse CountryResponse: CallBack "+response.body().getMeals());
+                    networkCallback.onGetCountrySuccessResult(response.body().getMeals());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CountryResponse> call, Throwable throwable) {
+                Log.i(TAG ,"onFailure CountryResponse: CallBack ");
+                networkCallback.onMealDetailsFailureResult(throwable.getMessage());
+                throwable.printStackTrace();
+            }
+        });
+    }
 }
+
+

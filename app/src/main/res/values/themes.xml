@@ -17,17 +17,17 @@
     </style>
     <style name="textTitleInHome">
         <item name="android:textColor">@color/blue</item>
-        <item name="android:textSize">48sp</item>
+        <item name="android:textSize">40sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:padding">8dp</item>
-        <item name="android:fontFamily">@font/berdanoregular</item>
+        <item name="android:fontFamily">@font/cfsabinettademo</item>
     </style>
     <style name="textCardInRecyclerView">
         <item name="android:textColor">@color/blue</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">30sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:padding">25dp</item>
-        <item name="android:fontFamily">@font/berdanoregular</item>
+        <item name="android:fontFamily">@font/cfsabinettademo</item>
     </style>
 
 </resources>
