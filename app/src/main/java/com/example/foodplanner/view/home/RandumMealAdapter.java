@@ -16,12 +16,12 @@ import com.example.foodplanner.model.data.MealsItem;
 
 import java.util.List;
 
-public class GenericMealAdapter extends RecyclerView.Adapter<GenericMealAdapter.MealViewHolder>{
+public class RandumMealAdapter extends RecyclerView.Adapter<RandumMealAdapter.MealViewHolder>{
     private List<MealsItem> meals;
     private OnRecipeClickListner listner;
     private Context context;
 
-    public GenericMealAdapter(List<MealsItem> meals, OnRecipeClickListner _listner,Context _context) {
+    public RandumMealAdapter(List<MealsItem> meals, OnRecipeClickListner _listner, Context _context) {
         listner = _listner;
         this.meals = meals;
         context = _context;
@@ -32,7 +32,7 @@ public class GenericMealAdapter extends RecyclerView.Adapter<GenericMealAdapter.
     public MealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v =inflater.inflate(R.layout.home_card,parent,false);
-        GenericMealAdapter.MealViewHolder vh = new GenericMealAdapter.MealViewHolder(v);
+        RandumMealAdapter.MealViewHolder vh = new RandumMealAdapter.MealViewHolder(v);
         return vh;
     }
 
@@ -45,7 +45,7 @@ public class GenericMealAdapter extends RecyclerView.Adapter<GenericMealAdapter.
                 .error(R.drawable.error_image)
                 .into(holder.imageView);
 
-        holder.txtView.setText(meal.getStrDescription());
+        holder.txtView.setText(meal.strDescription);
         holder.itemView.setOnClickListener(v -> {
             if (listner != null) {
                 listner.onRecipeClickListner(meal);

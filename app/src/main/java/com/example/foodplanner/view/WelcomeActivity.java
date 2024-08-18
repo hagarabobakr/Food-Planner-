@@ -7,11 +7,11 @@ import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.foodplanner.R;
+import com.example.foodplanner.view.home.HomeActivity;
+import com.example.foodplanner.view.signin.SignInActivity;
+import com.example.foodplanner.view.signup.SignUpActivity;
 
 public class WelcomeActivity extends AppCompatActivity {
     Button signInBtn;
@@ -26,7 +26,7 @@ public class WelcomeActivity extends AppCompatActivity {
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(WelcomeActivity.this, SignInActivity.class);
+                Intent intent = new Intent(WelcomeActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });

@@ -2,8 +2,11 @@ package com.example.foodplanner.model.network;
 
 import android.util.Log;
 
+import com.example.foodplanner.model.data.CategoryResponse;
 import com.example.foodplanner.model.data.MealResponse;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,8 +21,16 @@ public class RetrofitClient {
     private MealApi mealApi;
 
     private RetrofitClient(){
+
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .build();
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         mealApi = retrofit.create(MealApi.class);
@@ -38,15 +49,34 @@ public class RetrofitClient {
             @Override
             public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
                 if(response.isSuccessful()){
-                    Log.i(TAG ,"onResponse: CallBack "+response.raw()+response.body() );
+                    Log.i(TAG ,"onResponse MealResponse: CallBack "+response.body().meals.size());
                     networkCallback.onRandumMealSuccessResult(response.body().meals);
                 }
             }
 
             @Override
             public void onFailure(Call<MealResponse> call, Throwable throwable) {
-                Log.i(TAG ,"onResponse: CallBack ");
+                Log.i(TAG ,"onFailureeee MealResponse: CallBack ");
                 networkCallback.onRandumMealFailureResult(throwable.getMessage());
+                throwable.printStackTrace();
+            }
+        });
+    }
+    public void makeGetCatigoryItemsNetworkCall (NetworkCallBack networkCallback){
+        Call<CategoryResponse> call = mealApi.getCategories();
+        call.enqueue(new Callback<CategoryResponse>() {
+            @Override
+            public void onResponse(Call<CategoryResponse> call, Response<CategoryResponse> response) {
+                if(response.isSuccessful()){
+                    Log.i(TAG ,"onResponse CategoryResponse: CallBack "+response.body().getCategories().size());
+                    networkCallback.onCatigoryItemsSuccessResult(response.body().categories);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CategoryResponse> call, Throwable throwable) {
+                Log.i(TAG ,"onFailureeee CategoryResponse: CallBack ");
+                networkCallback.onCatigoryItemsFailureResult(throwable.getMessage());
                 throwable.printStackTrace();
             }
         });

@@ -1,5 +1,6 @@
 package com.example.foodplanner.model.network;
 
+import com.example.foodplanner.model.data.CategoriesItem;
 import com.example.foodplanner.model.data.MealsItem;
 
 import java.util.List;
@@ -7,4 +8,6 @@ import java.util.List;
 public interface NetworkCallBack{
     public void onRandumMealSuccessResult(List<MealsItem> meals);
     public void onRandumMealFailureResult(String errorMsg);
+    public void onCatigoryItemsSuccessResult(List<CategoriesItem> categoriesItems);
+    public void onCatigoryItemsFailureResult(String errorMsg);
 }

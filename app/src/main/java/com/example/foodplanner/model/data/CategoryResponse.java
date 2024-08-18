@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 public class   CategoryResponse{
 
 	@SerializedName("categories")
-	private List<CategoriesItem> categories;
+	public List<CategoriesItem> categories;
 
 	public List<CategoriesItem> getCategories(){
 		return categories;

@@ -9,7 +9,7 @@ public class MealsItem{
 	 String strMealThumb;
 
 	@SerializedName("strDescription")
-	private String strDescription;
+	public String strDescription;
 
 	@SerializedName("strIngredient")
 	private String strIngredient;
