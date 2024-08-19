@@ -1,4 +1,4 @@
-package com.example.foodplanner.view.home;
+package com.example.foodplanner.view.home.random;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.MealsItem;
+import com.example.foodplanner.view.home.OnRecipeClickListner;
 
 import java.util.List;
 

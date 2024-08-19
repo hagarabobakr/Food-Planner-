@@ -2,7 +2,9 @@ package com.example.foodplanner.model.data;
 
 import com.google.gson.annotations.SerializedName;
 
-public class MealsItem{
+import java.io.Serializable;
+
+public class MealsItem implements Serializable {
 
 	@SerializedName("strImageSource")
 	private Object strImageSource;
@@ -26,16 +28,16 @@ public class MealsItem{
 	private String strIngredient13;
 
 	@SerializedName("strIngredient16")
-	private Object strIngredient16;
+	private String strIngredient16;
 
 	@SerializedName("strIngredient15")
 	private String strIngredient15;
 
 	@SerializedName("strIngredient18")
-	private Object strIngredient18;
+	private String strIngredient18;
 
 	@SerializedName("strIngredient17")
-	private Object strIngredient17;
+	private String strIngredient17;
 
 	@SerializedName("strArea")
 	private String strArea;
@@ -44,7 +46,7 @@ public class MealsItem{
 	private Object strCreativeCommonsConfirmed;
 
 	@SerializedName("strIngredient19")
-	private Object strIngredient19;
+	private String strIngredient19;
 
 	@SerializedName("strTags")
 	private String strTags;
@@ -65,7 +67,7 @@ public class MealsItem{
 	private String strIngredient2;
 
 	@SerializedName("strIngredient20")
-	private Object strIngredient20;
+	private String strIngredient20;
 
 	@SerializedName("strIngredient5")
 	private String strIngredient5;
@@ -191,7 +193,7 @@ public class MealsItem{
 		return strIngredient13;
 	}
 
-	public Object getStrIngredient16(){
+	public String getStrIngredient16(){
 		return strIngredient16;
 	}
 
@@ -199,11 +201,11 @@ public class MealsItem{
 		return strIngredient15;
 	}
 
-	public Object getStrIngredient18(){
+	public String getStrIngredient18(){
 		return strIngredient18;
 	}
 
-	public Object getStrIngredient17(){
+	public String getStrIngredient17(){
 		return strIngredient17;
 	}
 
@@ -215,7 +217,7 @@ public class MealsItem{
 		return strCreativeCommonsConfirmed;
 	}
 
-	public Object getStrIngredient19(){
+	public String getStrIngredient19(){
 		return strIngredient19;
 	}
 
@@ -243,7 +245,7 @@ public class MealsItem{
 		return strIngredient2;
 	}
 
-	public Object getStrIngredient20(){
+	public String getStrIngredient20(){
 		return strIngredient20;
 	}
 

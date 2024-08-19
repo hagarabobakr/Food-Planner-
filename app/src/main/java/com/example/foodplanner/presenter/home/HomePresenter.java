@@ -2,14 +2,14 @@ package com.example.foodplanner.presenter.home;
 
 import com.example.foodplanner.model.data.CategoriesItem;
 import com.example.foodplanner.model.data.MealsItem;
-import com.example.foodplanner.model.network.NetworkCallBack;
+import com.example.foodplanner.model.network.HomeNetworkCallBack;
 import com.example.foodplanner.model.network.RetrofitClient;
 import com.example.foodplanner.view.home.HomeView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomePresenter implements NetworkCallBack {
+public class HomePresenter implements HomeNetworkCallBack {
     private HomeView view;
     private RetrofitClient retrofitClient;
 
@@ -19,22 +19,41 @@ public class HomePresenter implements NetworkCallBack {
         retrofitClient = _retrofitClient;
     }
 
-    public void getRandumMeal(){
+    public void getRandumMeal() {
         retrofitClient.makeGetRandomMealNetworkCall(this);
     }
-    public void getCatigoryIteams(){
+
+    public void getCatigoryIteams() {
         retrofitClient.makeGetCatigoryItemsNetworkCall(this);
     }
-    public void getMealDetails(String id){retrofitClient.makeGetMealDetailsNetworkCall(this,id);}
-    public void getCountries(){
+
+    public void getMealDetails(String id) {
+        retrofitClient.makeGetHomeMealDetailsNetworkCall(this, id);
+    }
+
+    public void getCountries() {
         retrofitClient.makeGetCountryNetworkCall(this);
+    }
+
+    public void getMealsByCategorie(String category) {
+        retrofitClient.makeGetMealsByCategoryNetworkCall(this, category);
+    }
+    public void getMealsByFirstLitter(String litter) {
+        retrofitClient.makeGetMealsByFirstLitterNetworkCall(this, litter);
+    }
+
+    public void getMealsByCountry(String country) {
+        retrofitClient.makeGetMealsByCountryNetworkCall(this, country);
     }
 
 
     @Override
     public void onRandumMealSuccessResult(List<MealsItem> meals) {
         view.showRandomMeals(meals);
-        view.showPopularMeals(meals);
+    }
+
+    @Override
+    public void onPopulerMealSuccessResult(List<MealsItem> meals) {
     }
 
     @Override
@@ -62,8 +81,6 @@ public class HomePresenter implements NetworkCallBack {
         }
     }
 
-
-
     @Override
     public void onMealDetailsFailureResult(String message) {
         view.showError(message);
@@ -76,5 +93,20 @@ public class HomePresenter implements NetworkCallBack {
             areas.add(meal.getStrArea());
         }
         view.showChips(areas);
+    }
+
+    @Override
+    public void onGetMealsByCategorieSuccessResult(List<MealsItem> meals) {
+        view.showMealsByCategory(meals);
+    }
+
+    @Override
+    public void onGetMealsByGetMealsByCountrySuccessResult(List<MealsItem> meals) {
+        view.showMealsByCountry(meals);
+    }
+
+    @Override
+    public void onGetMealsByFirstLitterSuccessResult(List<MealsItem> meals) {
+        view.showPopularMeals(meals);
     }
 }

@@ -3,4 +3,18 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="kitchen_buddy">Kitchen Buddy</string>
+    <string name="get_started">Get Started</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_in_with">Sign in with</string>
+    <string name="enter_full_name">Enter Full Name</string>
+    <string name="i_agree_to_the_processing_of">I agree to the processing of</string>
+    <string name="personal_data">Personal data</string>
+    <string name="sign_up">Sign up</string>
+    <string name="sign_up_with">Sign up with</string>
+    <string name="meal_of_the_day">Meal of the day</string>
+    <string name="most_popular_meals">Most Popular Meals</string>
+    <string name="categories">Categories</string>
+    <string name="welcome">Welcome</string>
 </resources>

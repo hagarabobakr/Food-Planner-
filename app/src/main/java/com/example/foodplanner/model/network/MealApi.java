@@ -48,6 +48,6 @@ public interface MealApi {
     Call<IngredientResponse> getIngredients();
 
     // Retrieves meals for a specific day (additional feature - day specified as Query Parameter)
-    @GET("filter.php")
-    Call<MealResponse> getMealsByDay(@Query("d") String day);
+    @GET("search.php?f=a")
+    Call<MealResponse> getMealsByFirstLitter(@Query("d") String day);
 }

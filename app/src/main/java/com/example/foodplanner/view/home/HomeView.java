@@ -15,4 +15,7 @@ public interface HomeView {
     void showMealDetails(MealsItem mealsItem);
 
     void showChips(List<String> areas);
+
+    void showMealsByCategory(List<MealsItem> meals);
+    void showMealsByCountry(List<MealsItem> meals);
 }

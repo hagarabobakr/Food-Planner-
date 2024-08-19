@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
+    android:padding="16dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
@@ -18,19 +18,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logoImageView"
         app:layout_constraintBottom_toTopOf="@id/welcomeCardView"
-        android:text="Kitchen Buddy"
-        style="@style/textAppName"
-        />
-
-
+        android:text="@string/app_name"
+        style="@style/textAppName" />
 
     <!-- Welcome Card -->
     <View
@@ -42,17 +41,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_name">
-
-    </View>
+        app:layout_constraintTop_toBottomOf="@id/app_name"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/welcomeCardView"
-        app:layout_constraintTop_toTopOf="@+id/welcomeCardView">
+        app:layout_constraintBottom_toBottomOf="@id/welcomeCardView"
+        app:layout_constraintTop_toTopOf="@id/welcomeCardView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:id="@+id/welcomeTextView"
@@ -60,9 +59,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:padding="16dp"
-            android:text="Welcome"
+            android:text="@string/welcome"
+            android:fontFamily="@font/cfsabinettademo"
             android:textColor="@color/blue"
-            android:textSize="40sp" />
+            android:textSize="32sp" />
 
         <TextView
             android:id="@+id/loremTextView"
@@ -70,11 +70,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="start"
-            android:textColor="@color/blue"
+            style="@style/textMealDetails"
             android:paddingStart="16dp"
             android:paddingBottom="16dp"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do tempor incididunt ut labore et."
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -82,33 +82,30 @@
             android:layout_marginTop="24dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingStart="18dp"
-            android:paddingEnd="18dp">
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
 
             <Button
                 android:id="@+id/signInButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@color/blue"
-                android:padding="20dp"
-                android:text="Sign In"
-                android:textColor="@android:color/white"
-                android:textSize="25dp" />
+                android:padding="16dp"
+                android:text="@string/sign_in"
+                style="@style/GeneralButton"
+                android:textSize="16dp"
+                />
 
             <Button
                 android:id="@+id/signUpButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:backgroundTint="@android:color/white"
-                android:padding="20dp"
-                android:text="Sign Up"
-                android:textColor="@color/blue"
-                android:textSize="25dp" />
+                style="@style/GeneralButton"
+                android:textSize="16dp"
+                android:padding="16dp"
+                android:text="@string/sign_up" />
         </LinearLayout>
-
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
