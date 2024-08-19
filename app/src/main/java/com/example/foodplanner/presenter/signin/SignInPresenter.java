@@ -26,8 +26,10 @@ public class SignInPresenter {
                     if (task.isSuccessful()) {
                         signInView.showSignInSuccess();
                     } else {
-                        signInView.showSignInFailure(task.getException().getMessage());
+                        String errorMessage = task.getException() != null ? task.getException().getMessage() : "Sign in failed";
+                        signInView.showSignInFailure(errorMessage);
                     }
                 });
     }
+
 }

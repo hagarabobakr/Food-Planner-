@@ -27,6 +27,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
         presenter = new SignUpPresenter(this);
 
         etEmail = findViewById(R.id.etEmail);
@@ -40,8 +41,8 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
             String email = etEmail.getText().toString().trim();
             String password = etPassword.getText().toString().trim();
 
-            if (email.isEmpty()) {
-                Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
+            if (!isEmailValid(email)) {
+                Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -71,6 +72,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
         SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("is_logged_in", true);
+        editor.putBoolean("is_guest", false);
         editor.apply();
         Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
         startActivity(intent);
@@ -92,10 +94,14 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
         progressBar.setVisibility(View.GONE);
     }
 
+    private boolean isEmailValid(String email) {
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
+        return email != null && email.matches(emailPattern);
+    }
+
     private boolean isPasswordComplex(String password) {
         String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$";
         return password != null && password.matches(passwordPattern);
     }
 }
-
 

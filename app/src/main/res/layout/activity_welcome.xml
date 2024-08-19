@@ -81,15 +81,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:gravity="center"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:paddingStart="16dp"
             android:paddingEnd="16dp">
 
             <Button
                 android:id="@+id/signInButton"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:padding="16dp"
                 android:text="@string/sign_in"
                 style="@style/GeneralButton"
@@ -98,14 +98,23 @@
 
             <Button
                 android:id="@+id/signUpButton"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 style="@style/GeneralButton"
                 android:textSize="16dp"
                 android:padding="16dp"
                 android:text="@string/sign_up" />
+            <TextView
+                android:id="@+id/login_as_a_guest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/login_as_a_guest"
+                android:gravity="center"
+                style="@style/textMealDetails"
+                android:textColor="@color/white"
+                />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

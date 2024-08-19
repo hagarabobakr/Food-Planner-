@@ -1,6 +1,7 @@
 package com.example.foodplanner.view.home;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -45,10 +46,17 @@ public class HomeActivity extends AppCompatActivity implements OnRecipeClickList
     LinearLayoutManager catigoryItemLayoutManager;
     LinearLayoutManager populerMealsLayoutManager;
 
+    //GUEST MODE
+    private boolean isGuest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        // Check if user is a guest
+        SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
+        isGuest = prefs.getBoolean("is_guest", false);
+
         // Initialize RecyclerViews
         randomMealsRecyclerView = findViewById(R.id.recycler_random_meals);
         categoriesRecyclerView = findViewById(R.id.recycler_categories);
@@ -86,7 +94,11 @@ public class HomeActivity extends AppCompatActivity implements OnRecipeClickList
 
     @Override
     public void onRecipeClickListner(MealsItem meal) {
-        presenter.getMealDetails(meal.getIdMeal());
+        if (isGuest) {
+            showGuestRestrictionMessage();
+        } else {
+            presenter.getMealDetails(meal.getIdMeal());
+        }
     }
 
     @Override
@@ -118,9 +130,13 @@ public class HomeActivity extends AppCompatActivity implements OnRecipeClickList
 
     @Override
     public void showMealDetails(MealsItem mealsItem) {
-        Intent intent = new Intent(this, MealDetailsActivity.class);
-        intent.putExtra(MEAL, mealsItem);
-        startActivity(intent);
+        if (isGuest) {
+            showGuestRestrictionMessage();
+        } else {
+            Intent intent = new Intent(this, MealDetailsActivity.class);
+            intent.putExtra(MEAL, mealsItem);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -138,10 +154,12 @@ public class HomeActivity extends AppCompatActivity implements OnRecipeClickList
             chip.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Define the action you want to perform on chip click
-                    String chipText = ((Chip) v).getText().toString();
-                    presenter.getMealsByCountry(chipText);
-
+                    if (isGuest) {
+                        showGuestRestrictionMessage();
+                    } else {
+                        String chipText = ((Chip) v).getText().toString();
+                        presenter.getMealsByCountry(chipText);
+                    }
                 }
             });
             chipGroup.addView(chip);
@@ -151,21 +169,36 @@ public class HomeActivity extends AppCompatActivity implements OnRecipeClickList
 
     @Override
     public void showMealsByCategory(List<MealsItem> meals) {
-        Intent intent = new Intent(this, GetMealsFromAnyWhereActivity.class);
-        intent.putExtra(MEAL, (Serializable) meals);
-        startActivity(intent);
+        if (isGuest) {
+            showGuestRestrictionMessage();
+        } else {
+            Intent intent = new Intent(this, GetMealsFromAnyWhereActivity.class);
+            intent.putExtra(MEAL, (Serializable) meals);
+            startActivity(intent);
+        }
 
     }
 
     @Override
     public void showMealsByCountry(List<MealsItem> meals) {
-        Intent intent = new Intent(this, GetMealsFromAnyWhereActivity.class);
-        intent.putExtra(MEAL, (Serializable) meals);
-        startActivity(intent);
+        if (isGuest) {
+            showGuestRestrictionMessage();
+        } else {
+            Intent intent = new Intent(this, GetMealsFromAnyWhereActivity.class);
+            intent.putExtra(MEAL, (Serializable) meals);
+            startActivity(intent);
+        }
     }
 
     @Override
     public void onCatigoryClickListner(CategoriesItem categoriesItem) {
-        presenter.getMealsByCategorie(categoriesItem.getStrCategory());
+        if (isGuest) {
+            showGuestRestrictionMessage();
+        } else {
+            presenter.getMealsByCategorie(categoriesItem.getStrCategory());
+        }
+    }
+    private void showGuestRestrictionMessage() {
+        Toast.makeText(this, "Login is required to access this feature", Toast.LENGTH_LONG).show();
     }
 }

@@ -24,4 +24,5 @@
     <string name="add_to_favorite">Add to favorite</string>
     <string name="ingredients">Ingredients:</string>
     <string name="steps">Steps:</string>
+    <string name="login_as_a_guest">Login as a guest</string>
 </resources>
