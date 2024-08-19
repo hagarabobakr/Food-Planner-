@@ -1,6 +1,7 @@
 package com.example.foodplanner.view.signin;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,10 +22,10 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
     private Button btnSignIn;
     private ProgressBar progressBar;
     private SignInPresenter signInPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_in);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
@@ -33,8 +34,8 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
         signInPresenter = new SignInPresenter(this);
 
         btnSignIn.setOnClickListener(view -> {
-            String email= etEmail.getText().toString().trim();
-            String password= etPassword.getText().toString().trim();
+            String email = etEmail.getText().toString().trim();
+            String password = etPassword.getText().toString().trim();
             signInPresenter.signIn(email, password);
         });
     }
@@ -42,6 +43,11 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
     @Override
     public void showSignInSuccess() {
         Toast.makeText(this, "Sign in successful!", Toast.LENGTH_SHORT).show();
+        // Save login state
+        SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("is_logged_in", true);
+        editor.apply();
         startActivity(new Intent(SignInActivity.this, HomeActivity.class));
         finish();
     }
@@ -61,5 +67,4 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
         progressBar.setVisibility(View.GONE);
     }
 }
-
 

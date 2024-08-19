@@ -238,9 +238,10 @@
             android:layout_height="wrap_content"
             android:text="Sign in"
             android:textColor="@color/blue"
+            android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/tvSignIn"
             app:layout_constraintStart_toEndOf="@id/tvSignIn"
-            app:layout_constraintTop_toTopOf="@id/tvSignIn" />
+            app:layout_constraintTop_toTopOf="@+id/tvSignIn" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

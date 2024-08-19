@@ -73,7 +73,7 @@
             style="@style/textMealDetails"
             android:paddingStart="16dp"
             android:paddingBottom="16dp"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do tempor incididunt ut labore et."
+            android:text="@string/welcome_to_kitchen_buddy"
             android:textSize="18sp" />
 
         <LinearLayout

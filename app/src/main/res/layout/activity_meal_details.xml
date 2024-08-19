@@ -50,7 +50,7 @@
                         android:id="@+id/recipeTitle1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Name: "
+                        android:text="@string/name"
                         style="@style/textMealDetails"
                         />
                     <TextView
@@ -70,7 +70,7 @@
                         android:id="@+id/recipeCountry1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Country: "
+                        android:text="@string/country"
                         style="@style/textMealDetails"
                         />
                     <TextView
@@ -84,7 +84,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Add to favorite"
+                    android:text="@string/add_to_favorite"
                     style="@style/GeneralButton"
                     />
             </LinearLayout>
@@ -94,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/textTitleInHome"
-            android:text="Ingredients: "
+            android:text="@string/ingredients"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView"
@@ -115,7 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/textTitleInHome"
-            android:text="Steps: "
+            android:text="@string/steps"
             app:layout_constraintTop_toBottomOf="@id/recyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

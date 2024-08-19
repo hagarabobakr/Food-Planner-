@@ -11,6 +11,7 @@ public class SignInPresenter {
         mAuth = FirebaseAuth.getInstance();
         this.signInView = signInView;
     }
+
     public void signIn(String email, String password) {
         if (email.isEmpty() || password.isEmpty()) {
             signInView.showSignInFailure("Email or Password cannot be empty");
@@ -28,5 +29,5 @@ public class SignInPresenter {
                         signInView.showSignInFailure(task.getException().getMessage());
                     }
                 });
-}
+    }
 }
