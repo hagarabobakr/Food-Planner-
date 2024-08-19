@@ -25,4 +25,5 @@
     <string name="ingredients">Ingredients:</string>
     <string name="steps">Steps:</string>
     <string name="login_as_a_guest">Login as a guest</string>
+    <string name="video_to_show_steps">Video to show steps:</string>
 </resources>

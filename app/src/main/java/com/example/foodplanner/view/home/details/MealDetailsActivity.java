@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -16,6 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.MealsItem;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +30,14 @@ public class MealDetailsActivity extends AppCompatActivity {
     private ImageView image;
     private TextView name, country, details;
     private RecyclerView recyclerView;
+    private YouTubePlayerView youTubePlayerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_meal_details);
+        youTubePlayerView = findViewById(R.id.youtube_player_view);
         image = findViewById(R.id.meal_image);
         name = findViewById(R.id.recipeTitle2);
         country = findViewById(R.id.recipeCountry2);
@@ -72,6 +78,30 @@ public class MealDetailsActivity extends AppCompatActivity {
             ingredients.removeIf(String::isEmpty);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setAdapter(new IngredientsAdapter(ingredients));
+            // Configure YouTube Player
+            getLifecycle().addObserver(youTubePlayerView);
+            youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+                @Override
+                public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                    if (meal.getStrYoutube() != null) {
+                        String videoId = extractYouTubeVideoId(meal.getStrYoutube());
+                        youTubePlayer.cueVideo(videoId, 0);
+                    }
+                }
+            });
+    }}
+
+        // Helper method to extract YouTube video ID from URL
+        public String extractYouTubeVideoId(String url) {
+            String videoId = "";
+            if (url != null && url.contains("v=")) {
+                int startIndex = url.indexOf("v=") + 2;
+                int endIndex = url.indexOf("&", startIndex);
+                if (endIndex == -1) {
+                    endIndex = url.length();
+                }
+                videoId = url.substring(startIndex, endIndex);
+            }
+            return videoId;
         }
-    }
 }

@@ -129,6 +129,26 @@
             app:layout_constraintTop_toBottomOf="@id/steps_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/youtube_video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/textTitleInHome"
+            android:text="@string/video_to_show_steps"
+            app:layout_constraintTop_toBottomOf="@id/steps_details"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtube_player_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:autoPlay="true"
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/youtube_video"
+            app:videoId="XIMLoLxmTDw" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
