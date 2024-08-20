@@ -1,4 +1,4 @@
-package com.example.foodplanner.model.network;
+package com.example.foodplanner.presenter.home;
 
 import com.example.foodplanner.model.data.CategoriesItem;
 import com.example.foodplanner.model.data.MealsItem;

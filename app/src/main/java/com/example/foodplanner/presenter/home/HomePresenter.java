@@ -2,7 +2,6 @@ package com.example.foodplanner.presenter.home;
 
 import com.example.foodplanner.model.data.CategoriesItem;
 import com.example.foodplanner.model.data.MealsItem;
-import com.example.foodplanner.model.network.HomeNetworkCallBack;
 import com.example.foodplanner.model.network.RetrofitClient;
 import com.example.foodplanner.view.home.HomeView;
 

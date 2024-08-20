@@ -6,7 +6,8 @@ import com.example.foodplanner.model.data.CategoryResponse;
 import com.example.foodplanner.model.data.CountryResponse;
 import com.example.foodplanner.model.data.MealDetailResponse;
 import com.example.foodplanner.model.data.MealResponse;
-import com.example.foodplanner.presenter.home.details.GetMealDetailsNetworkCallBack;
+import com.example.foodplanner.presenter.home.HomeNetworkCallBack;
+import com.example.foodplanner.presenter.home.getmeal.GetMealDetailsNetworkCallBack;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

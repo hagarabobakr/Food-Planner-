@@ -1,4 +1,4 @@
-package com.example.foodplanner.presenter.home.details;
+package com.example.foodplanner.presenter.home.getmeal;
 
 import com.example.foodplanner.model.data.MealsItem;
 import com.example.foodplanner.model.network.RetrofitClient;
@@ -24,7 +24,6 @@ public class GetMealsFromAnyWherePresenter implements GetMealDetailsNetworkCallB
         } else {
             view.showError("No meal details found");
         }
-
     }
 
     @Override

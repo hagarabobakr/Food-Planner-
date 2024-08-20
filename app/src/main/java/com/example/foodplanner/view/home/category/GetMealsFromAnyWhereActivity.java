@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.MealsItem;
 import com.example.foodplanner.model.network.RetrofitClient;
-import com.example.foodplanner.presenter.home.details.GetMealsFromAnyWherePresenter;
+import com.example.foodplanner.presenter.home.getmeal.GetMealsFromAnyWherePresenter;
 import com.example.foodplanner.view.home.OnRecipeClickListner;
 import com.example.foodplanner.view.home.details.MealDetailsActivity;
 
