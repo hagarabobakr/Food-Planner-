@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/homeFragment"
+            android:icon="@drawable/home_ic"
+            android:title="@string/home" />
+        <item
+            android:id="@+id/profileFragment"
+            android:icon="@drawable/profile_2user"
+            android:title="@string/my_profile" />
+        <item
+            android:id="@+id/favoriteFragment"
+            android:icon="@drawable/save_ic"
+            android:title="My favorite" />
+        <item
+            android:id="@+id/myPlanFragment"
+            android:icon="@drawable/work_plan_ic"
+            android:title="My plan" />
+        <item
+            android:id="@+id/settingsFragment"
+            android:icon="@drawable/settings_ic"
+            android:title="@string/settings" />
+        <item
+            android:id="@+id/aboutFragment"
+            android:icon="@drawable/about_ic"
+            android:title="@string/about" />
+        <item
+            android:id="@+id/logOutFragment"
+            android:icon="@drawable/logout_ic"
+            android:title="@string/log_out" />
+    </group>
+
+</menu>
