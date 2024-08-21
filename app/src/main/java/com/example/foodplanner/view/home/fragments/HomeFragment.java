@@ -6,12 +6,15 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -34,7 +37,11 @@ import com.google.android.material.chip.ChipGroup;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 
 public class HomeFragment extends Fragment implements OnRecipeClickListner, HomeView, OnCatigoryClickListner {
 
@@ -44,7 +51,8 @@ public class HomeFragment extends Fragment implements OnRecipeClickListner, Home
     private RecyclerView randomMealsRecyclerView;
     private RecyclerView categoriesRecyclerView;
     private RecyclerView populerMealsRecyclerView;
-    private ChipGroup chipGroup;
+    private ChipGroup chipGroup, chipGroupSearch;
+    private SearchView searchView;
 
     private HomePresenter presenter;
     private RandumMealAdapter randomMealAdapter;
@@ -52,6 +60,49 @@ public class HomeFragment extends Fragment implements OnRecipeClickListner, Home
     private CategoryAdapter categoryAdapter;
 
     private boolean isGuest;
+    private String searchQuery = "";
+    private int searchType = -1; // 0 = Country, 1 = Ingredient, 2 = Category
+
+    // Define valid values with lowercase
+    private static final Set<String> COUNTRIES = new HashSet<>(Arrays.asList(
+            "american", "british", "canadian", "chinese", "croatian",
+            "dutch", "egyptian", "filipino", "french", "greek", "indian",
+            "irish", "italian", "jamaican", "japanese", "kenyan",
+            "malaysian", "mexican", "moroccan", "polish", "portuguese",
+            "russian", "spanish", "thai", "tunisian", "turkish",
+            "ukrainian", "unknown", "vietnamese"
+    ));
+
+    private static final Set<String> INGREDIENTS = new HashSet<>(Arrays.asList(
+            "chicken", "salmon", "beef", "pork", "avocado",
+            "apple cider vinegar", "asparagus", "aubergine",
+            "baby plum tomatoes", "bacon", "baking powder",
+            "balsamic vinegar", "basil", "basil leaves",
+            "basmati rice", "bay leaf", "bay leaves",
+            "beef brisket", "beef fillet", "beef gravy",
+            "beef stock", "bicarbonate of soda", "biryani masala",
+            "black pepper", "black treacle", "borlotti beans",
+            "bowtie pasta", "bramley apples", "brandy", "bread",
+            "breadcrumbs", "broccoli", "brown lentils",
+            "brown rice", "brown sugar", "butter",
+            "cacao", "cajun", "canned tomatoes", "cannellini beans",
+            "cardamom", "carrots", "cashew nuts", "cashews",
+            "caster sugar", "cayenne pepper", "celeriac",
+            "celery", "celery salt", "challots", "charlotte potatoes",
+            "cheddar cheese", "cheese", "cheese curds",
+            "cherry tomatoes", "chestnut mushroom",
+            "chicken breast", "chicken breasts", "chicken legs",
+            "chicken stock", "chicken thighs", "chickpeas",
+            "chili powder", "chilled butter", "chilli",
+            "chilli powder", "chinese broccoli", "chocolate chips",
+            "chopped onion", "chopped parsley"
+    ));
+
+    private static final Set<String> CATEGORIES = new HashSet<>(Arrays.asList(
+            "beef", "breakfast", "chicken", "dessert", "goat", "lamb",
+            "miscellaneous", "pasta", "pork", "seafood", "side", "starter",
+            "vegan", "vegetarian"
+    ));
 
     @Nullable
     @Override
@@ -73,6 +124,34 @@ public class HomeFragment extends Fragment implements OnRecipeClickListner, Home
         categoriesRecyclerView = view.findViewById(R.id.recycler_categories);
         populerMealsRecyclerView = view.findViewById(R.id.recycler_popular_meals);
         chipGroup = view.findViewById(R.id.chipGroup);
+        chipGroupSearch = view.findViewById(R.id.chipGroupSearch);
+        searchView = view.findViewById(R.id.search_view);
+
+        searchView.setOnQueryTextFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                showPopupMenu(v);
+            }
+        });
+
+        // Fetch the text from SearchView
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (searchType == -1) {
+                    Toast.makeText(getContext(), "Please select a search type first", Toast.LENGTH_SHORT).show();
+                } else {
+                    searchQuery = query.toLowerCase(Locale.ROOT);
+                    handleSearchQuery(searchQuery);
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchQuery = newText.toLowerCase(Locale.ROOT);
+                return true;
+            }
+        });
 
         // Setup LayoutManagers
         randomMealsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -80,13 +159,13 @@ public class HomeFragment extends Fragment implements OnRecipeClickListner, Home
         categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         // Initialize Adapters
-        randomMealAdapter = new RandumMealAdapter(new ArrayList<>(),  this,getContext());
+        randomMealAdapter = new RandumMealAdapter(new ArrayList<>(), this, getContext());
         randomMealsRecyclerView.setAdapter(randomMealAdapter);
 
-        categoryAdapter = new CategoryAdapter(new ArrayList<>(), this,getContext());
+        categoryAdapter = new CategoryAdapter(new ArrayList<>(), this, getContext());
         categoriesRecyclerView.setAdapter(categoryAdapter);
 
-        populerMealAdapter = new PopularMealAdapter(new ArrayList<>(), this,getContext());
+        populerMealAdapter = new PopularMealAdapter(new ArrayList<>(), this, getContext());
         populerMealsRecyclerView.setAdapter(populerMealAdapter);
 
         // Initialize Presenter
@@ -95,6 +174,55 @@ public class HomeFragment extends Fragment implements OnRecipeClickListner, Home
         presenter.getMealsByFirstLitter("B");
         presenter.getCatigoryIteams();
         presenter.getCountries();
+    }
+
+    private void handleSearchQuery(String query) {
+        Toast.makeText(getContext(), "Search Query: " + query, Toast.LENGTH_SHORT).show();
+        if (searchType == 0) {
+            if (COUNTRIES.contains(query)) {
+                presenter.getMealsByCountry(query);
+            } else {
+                Toast.makeText(getContext(), "Country not found", Toast.LENGTH_SHORT).show();
+            }
+        } else if (searchType == 1) {
+            if (INGREDIENTS.contains(query)) {
+                presenter.getMealsByIngredient(query);
+            } else {
+                Toast.makeText(getContext(), "Ingredient not found", Toast.LENGTH_SHORT).show();
+            }
+        } else if (searchType == 2) {
+            if (CATEGORIES.contains(query)) {
+                presenter.getMealsByCategorie(query);
+            } else {
+                Toast.makeText(getContext(), "Category not found", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void showPopupMenu(View anchor) {
+        PopupMenu popupMenu = new PopupMenu(getContext(), anchor);
+        MenuInflater inflater = popupMenu.getMenuInflater();
+        inflater.inflate(R.menu.popup_menu_search, popupMenu.getMenu());
+
+        popupMenu.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.menu_country) {
+                searchType = 0;
+                Toast.makeText(getContext(), "Searching by country", Toast.LENGTH_SHORT).show();
+                return true;
+            } else if (item.getItemId() == R.id.menu_ingredient) {
+                searchType = 1;
+                Toast.makeText(getContext(), "Searching by ingredient", Toast.LENGTH_SHORT).show();
+                return true;
+            } else if (item.getItemId() == R.id.menu_category) {
+                searchType = 2;
+                Toast.makeText(getContext(), "Searching by category", Toast.LENGTH_SHORT).show();
+                return true;
+            } else {
+                return false;
+            }
+        });
+
+        popupMenu.show();
     }
 
     @Override
@@ -123,7 +251,7 @@ public class HomeFragment extends Fragment implements OnRecipeClickListner, Home
     @Override
     public void showCategories(List<CategoriesItem> categories) {
         Log.i(TAG, "showCategories: ");
-        categoryAdapter = new CategoryAdapter(categories, this, getContext() );
+        categoryAdapter = new CategoryAdapter(categories, this, getContext());
         categoriesRecyclerView.setAdapter(categoryAdapter);
         categoryAdapter.notifyDataSetChanged();
     }
@@ -180,6 +308,17 @@ public class HomeFragment extends Fragment implements OnRecipeClickListner, Home
 
     @Override
     public void showMealsByCountry(List<MealsItem> meals) {
+        if (isGuest) {
+            showGuestRestrictionMessage();
+        } else {
+            Intent intent = new Intent(getContext(), GetMealsFromAnyWhereActivity.class);
+            intent.putExtra(MEAL, (Serializable) meals);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void showMealsByIngredient(List<MealsItem> meals) {
         if (isGuest) {
             showGuestRestrictionMessage();
         } else {

@@ -44,6 +44,9 @@ public class HomePresenter implements HomeNetworkCallBack {
     public void getMealsByCountry(String country) {
         retrofitClient.makeGetMealsByCountryNetworkCall(this, country);
     }
+    public void getMealsByIngredient(String ingredient) {
+        retrofitClient.makeGetMealsByIngredientNetworkCall(this, ingredient);
+    }
 
 
     @Override
@@ -107,5 +110,10 @@ public class HomePresenter implements HomeNetworkCallBack {
     @Override
     public void onGetMealsByFirstLitterSuccessResult(List<MealsItem> meals) {
         view.showPopularMeals(meals);
+    }
+
+    @Override
+    public void onGetMealsByIngredientSuccessResult(List<MealsItem> meals) {
+        view.showMealsByIngredient(meals);
     }
 }

@@ -21,4 +21,6 @@ public interface HomeNetworkCallBack {
     public void onGetMealsByGetMealsByCountrySuccessResult(List<MealsItem> meals);
 
     public void onGetMealsByFirstLitterSuccessResult(List<MealsItem> meals);
+
+    public void onGetMealsByIngredientSuccessResult(List<MealsItem> meals);
 }

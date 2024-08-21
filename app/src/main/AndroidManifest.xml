@@ -33,7 +33,7 @@
             android:name=".view.WelcomeActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".view.home.fragments.MainActivity"
             android:exported="false" />
         <activity
             android:name=".view.SplashActivity"

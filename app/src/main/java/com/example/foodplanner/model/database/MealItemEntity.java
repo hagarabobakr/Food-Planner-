@@ -21,6 +21,7 @@ public class MealItemEntity {
     // Constructor
     public MealItemEntity(int id,String idMeal,String strMeal, String strMealThumb, String strCategory, String strArea,
                           String strInstructions, String ingredients, String strYoutube) {
+        this.idMeal = idMeal;
         this.strMeal = strMeal;
         this.strMealThumb = strMealThumb;
         this.strCategory = strCategory;

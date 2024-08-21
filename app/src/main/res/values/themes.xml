@@ -54,5 +54,11 @@
         <item name="android:textSize">20sp</item>
         <item name="android:fontFamily">@font/cfsabinettademo</item>
     </style>
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="queryBackground">@android:color/transparent</item>
+        <item name="queryHint">Your search hint text</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textColorHint">@color/gray</item>
+    </style>
 
 </resources>

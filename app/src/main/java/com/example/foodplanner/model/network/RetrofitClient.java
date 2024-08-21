@@ -174,7 +174,7 @@ public class RetrofitClient {
             @Override
             public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
                 if(response.isSuccessful()){
-                    Log.i(TAG ,"onResponse GetMealsByCountry: CallBack "+response.body().meals.size());
+                     Log.i(TAG ,"onResponse GetMealsByCountry: CallBack "+response.body().meals.size());
                     homeNetworkCallback.onGetMealsByGetMealsByCountrySuccessResult(response.body().meals);
                 }
             }
@@ -206,6 +206,26 @@ public class RetrofitClient {
             }
         });
     }
+    public void makeGetMealsByIngredientNetworkCall(HomeNetworkCallBack homeNetworkCallback, String ingredient){
+        Call<MealResponse> call = mealApi.getMealsByIngredient(ingredient);
+        call.enqueue(new Callback<MealResponse>() {
+            @Override
+            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
+                if(response.isSuccessful()){
+                    Log.i(TAG ,"onResponse MealResponse: CallBack "+response.body().meals.size());
+                    homeNetworkCallback.onGetMealsByIngredientSuccessResult(response.body().meals);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MealResponse> call, Throwable throwable) {
+                Log.i(TAG ,"onFailureeee MealResponse: CallBack ");
+                homeNetworkCallback.onRandumMealFailureResult(throwable.getMessage());
+                throwable.printStackTrace();
+            }
+        });
+    }
+
 }
 
 

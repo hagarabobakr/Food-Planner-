@@ -6,25 +6,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.home.HomeActivity">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/gray"
-        android:gravity="center_vertical"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
         android:padding="16dp">
-
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <!-- SearchView to handle searches -->
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:queryHint="@string/search_hint" />
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                android:gravity="center_horizontal"
+                />
+
 
             <TextView
                 android:id="@+id/random_meals_label"
@@ -59,8 +64,7 @@
                 android:id="@+id/recycler_popular_meals"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                />
+                android:layout_marginTop="8dp" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
@@ -87,6 +91,14 @@
                 android:layout_height="1dp"
                 android:layout_margin="25dp"
                 />
+            <TextView
+                android:id="@+id/countries_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/country"
+                style="@style/textTitleInHome"
+                />
+
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chipGroup"
                 android:layout_width="match_parent"

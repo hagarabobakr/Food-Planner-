@@ -18,4 +18,6 @@ public interface HomeView {
 
     void showMealsByCategory(List<MealsItem> meals);
     void showMealsByCountry(List<MealsItem> meals);
+
+    void showMealsByIngredient(List<MealsItem> meals);
 }
