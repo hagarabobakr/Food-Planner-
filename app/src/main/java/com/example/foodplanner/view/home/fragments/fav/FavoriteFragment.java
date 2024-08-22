@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.foodplanner.R;
+import com.example.foodplanner.model.data.MealsItem;
 import com.example.foodplanner.model.database.MealItemEntity;
 import com.example.foodplanner.model.database.MealsLocalDataSource;
 import com.example.foodplanner.presenter.home.fav.FavMealPresenter;
@@ -71,11 +72,12 @@ public class FavoriteFragment extends Fragment implements OnFavRecipeClickListne
 
 
     @Override
-    public void onFavRecipeClickListner(MealItemEntity mealItem) {
+    public void onFavRecipeClickListner(MealsItem mealItem) {
+
     }
 
     @Override
-    public void onDeletIcClickListner(MealItemEntity mealItem) {
+    public void onDeletIcClickListner(MealsItem mealItem) {
         Log.i(TAG, "onDeletIcClickListner: ");
         presenter.removeMeal(mealItem);
         favAdapter.notifyDataSetChanged();
@@ -123,11 +125,11 @@ public class FavoriteFragment extends Fragment implements OnFavRecipeClickListne
 
 
     @Override
-    public void showLocalData(LiveData<List<MealItemEntity>> allMeals) {
+    public void showLocalData(LiveData<List<MealsItem>> allMeals) {
 
-        allMeals.observe(this, new Observer<List<MealItemEntity>>() {
+        allMeals.observe(this, new Observer<List<MealsItem>>() {
             @Override
-            public void onChanged(List<MealItemEntity> mealItemEntities) {
+            public void onChanged(List<MealsItem> mealItemEntities) {
                 favAdapter = new FavMealAdapter(mealItemEntities,FavoriteFragment.this,getContext());
                 recyclerView.setAdapter(favAdapter);
                 favAdapter.notifyDataSetChanged();

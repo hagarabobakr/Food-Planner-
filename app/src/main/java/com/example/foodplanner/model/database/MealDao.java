@@ -7,17 +7,19 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import com.example.foodplanner.model.data.MealsItem;
+
 import java.util.List;
 
 @Dao
 public interface MealDao {
 
-    @Query("SELECT * FROM meal_table")
-    LiveData<List<MealItemEntity>> getAllMeals();
+    @Query("SELECT * FROM meals")
+    LiveData<List<MealsItem>> getAllMeals();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertMeal(MealItemEntity meal);
+    void insertMeal(MealsItem meal);
 
     @Delete
-    void deleteMeal(MealItemEntity meal);
+    void deleteMeal(MealsItem meal);
 }

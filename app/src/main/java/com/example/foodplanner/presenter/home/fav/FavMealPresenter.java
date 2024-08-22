@@ -1,5 +1,6 @@
 package com.example.foodplanner.presenter.home.fav;
 
+import com.example.foodplanner.model.data.MealsItem;
 import com.example.foodplanner.model.database.MealItemEntity;
 import com.example.foodplanner.model.database.MealsLocalDataSource;
 import com.example.foodplanner.view.home.fragments.fav.FavView;
@@ -16,7 +17,7 @@ private MealsLocalDataSource mealsLocalDataSource;
 
         favView.showLocalData( mealsLocalDataSource.getAllMeals());
     }
-    public  void removeMeal(MealItemEntity mealItemEntity){
+    public  void removeMeal(MealsItem mealItemEntity){
         mealsLocalDataSource.deleteMeal(mealItemEntity);
     }
 }

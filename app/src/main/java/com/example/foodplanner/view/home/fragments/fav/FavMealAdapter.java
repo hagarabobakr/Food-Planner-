@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
+import com.example.foodplanner.model.data.MealsItem;
 import com.example.foodplanner.model.database.MealItemEntity;
 
 import java.util.List;
@@ -21,11 +22,11 @@ import java.util.List;
 public class FavMealAdapter extends RecyclerView.Adapter<FavMealAdapter.MealViewHolder> {
 
     private static final String TAG = "FavMealAdapter";
-    private final List<MealItemEntity> favMeals;
+    private final List<MealsItem> favMeals;
     private OnFavRecipeClickListner listner;
     private Context context;
 
-    public FavMealAdapter(List<MealItemEntity> meals, OnFavRecipeClickListner _listner, Context _context) {
+    public FavMealAdapter(List<MealsItem> meals, OnFavRecipeClickListner _listner, Context _context) {
         listner = _listner;
         context =_context;
         this.favMeals = meals;
@@ -41,7 +42,7 @@ public class FavMealAdapter extends RecyclerView.Adapter<FavMealAdapter.MealView
 
     @Override
     public void onBindViewHolder(@NonNull MealViewHolder holder, int position) {
-        MealItemEntity mealItem = favMeals.get(position);
+        MealsItem mealItem = favMeals.get(position);
         Glide.with(context)
                 .load(mealItem.getStrMealThumb())
                 .placeholder(R.drawable.placeholder_image)

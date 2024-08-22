@@ -6,6 +6,8 @@ import android.content.Context;
 import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 
+import com.example.foodplanner.model.data.MealsItem;
+
 import java.util.List;
 
 public class MealsLocalDataSource {
@@ -13,7 +15,7 @@ public class MealsLocalDataSource {
     private final MealDao mealDao;
     Context context;
     private static MealsLocalDataSource mealsLocalDataSource = null;
-    private LiveData<List<MealItemEntity>> mealItemList;
+    private LiveData<List<MealsItem>> mealItemList;
 
     public MealsLocalDataSource(Context _context) {
         context =_context;
@@ -29,17 +31,18 @@ public class MealsLocalDataSource {
         return mealsLocalDataSource;
     }
 
-    public LiveData<List<MealItemEntity>> getAllMeals() {
-        return mealItemList;
+    public LiveData<List<MealsItem>> getAllMeals() {
+        return mealItemList
+                ;
     }
 
-    public void insertMeal(MealItemEntity meal) {
+    public void insertMeal(MealsItem meal) {
         new Thread(() -> {
                 mealDao.insertMeal(meal);
         }).start();
     }
 
-    public void deleteMeal(MealItemEntity meal) {
+    public void deleteMeal(MealsItem meal) {
         new Thread(() -> {
                 mealDao.deleteMeal(meal);
         }).start();
