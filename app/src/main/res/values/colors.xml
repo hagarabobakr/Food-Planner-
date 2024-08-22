@@ -21,5 +21,6 @@
     <color name="my_dark_primary">#141B45</color>
     <color name="my_dark_primary_variant">#293DAC</color>
     <color name="my_dark_secondary">#EDB08D</color>
+    <color name="dark_gray2">#737577</color>
 
 </resources>

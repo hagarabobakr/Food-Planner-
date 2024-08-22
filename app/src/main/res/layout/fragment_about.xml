@@ -1,15 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.home.fragments.AboutFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/tvAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/textAppName"
+        android:layout_gravity="center"
+        android:text="@string/app_name" />
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="100sp"
-        android:text="about" />
+        android:layout_height="wrap_content"
+        app:cardElevation="16dp"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="24dp"
+        >
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="24dp"
+            >
+            <TextView
+                android:id="@+id/tvAppDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/textTitleInHome"
+                android:layout_marginTop="8dp"
+                android:text="Food Planner is an Android app that helps users plan their weekly meals, view meal categories, and save favorite meals for offline browsing. Powered by https://themealdb.com/api.php" />
+
+            <TextView
+                android:id="@+id/tvContactInfo"
+                style="@style/textMealDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Contact us: support@foodplanner.com"
+                android:textColor="@color/dark_gray2" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>
