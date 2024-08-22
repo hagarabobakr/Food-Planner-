@@ -21,7 +21,7 @@
         tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/myPlanFragment"
-        android:name="com.example.foodplanner.view.home.fragments.MyPlanFragment"
+        android:name="com.example.foodplanner.view.home.fragments.plan.MyPlanFragment"
         android:label="fragment_my_plan"
         tools:layout="@layout/fragment_my_plan" />
     <fragment

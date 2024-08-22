@@ -1,5 +1,6 @@
 package com.example.foodplanner.view.home.fragments.fav;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.MealsItem;
@@ -28,6 +30,7 @@ import com.example.foodplanner.view.home.random.RandumMealAdapter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -73,7 +76,7 @@ public class FavoriteFragment extends Fragment implements OnFavRecipeClickListne
 
     @Override
     public void onFavRecipeClickListner(MealsItem mealItem) {
-
+        showMealDetails(mealItem);
     }
 
     @Override
@@ -83,6 +86,42 @@ public class FavoriteFragment extends Fragment implements OnFavRecipeClickListne
         favAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onAddToPlanClickListner(MealsItem mealItem) {
+        // Show DatePickerDialog to select date
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                getContext(),
+                (view, year, month, dayOfMonth) -> {
+                    // Handle selected date
+                    String date = dayOfMonth + "/" + (month + 1) + "/" + year;
+                    showMealTypeDialog(mealItem, date);
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.show();
+    }
+    private void showMealTypeDialog(MealsItem mealItem, String date) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Choose Meal Type");
+
+        String[] mealTypes = {"breakfast", "lunch", "dinner"};
+        builder.setSingleChoiceItems(mealTypes, -1, (dialog, which) -> {
+            String selectedMealType = mealTypes[which];
+            handleMealSelection(mealItem, date, selectedMealType);
+            dialog.dismiss();
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+    private void handleMealSelection(MealsItem mealItem, String date, String mealType) {
+        // Process the mealItem with the selected date and meal type
+        Toast.makeText(getContext(), "Meal Item: " + mealItem.getStrMeal()+ "\nDate: " + date + "\nMeal Type: " + mealType, Toast.LENGTH_LONG).show();
+        // You can also add code here to save this data or perform other actions
+    }
 
 
 
@@ -137,14 +176,14 @@ public class FavoriteFragment extends Fragment implements OnFavRecipeClickListne
         });
     }
     // Method to show meal details
-    private void showMealDetails(MealItemEntity mealItem) {
+    private void showMealDetails(MealsItem mealItem) {
         Intent intent = new Intent(getContext(), MealDetailsActivity.class);
         intent.putExtra(MEAL, (Serializable) mealItem);
         startActivity(intent);
     }
 
     // Method to delete a meal
-    private void deleteMeal(MealItemEntity mealItem) {
+    private void deleteMeal(MealsItem mealItem) {
         //presenter.removeMeal(mealItem);
         //favAdapter.notifyDataSetChanged();
     }

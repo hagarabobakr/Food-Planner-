@@ -7,13 +7,16 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.foodplanner.model.data.MealsItem;
+import com.example.foodplanner.model.database.data.MealPlan;
+import com.example.foodplanner.model.database.data.MealPlanDao;
 
-@Database(entities = {MealsItem.class}, version = 2)
+@Database(entities = {MealsItem.class, MealPlan.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instance = null;
 
     public abstract MealDao getMealDao();
+    public abstract MealPlanDao mealPlanDao();
 
     public static synchronized AppDatabase getInstance(Context context) {
         if (instance == null) {

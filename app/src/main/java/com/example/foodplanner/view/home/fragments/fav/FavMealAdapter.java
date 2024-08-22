@@ -53,8 +53,7 @@ public class FavMealAdapter extends RecyclerView.Adapter<FavMealAdapter.MealView
         holder.btnAddToPlan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                listner.onFavRecipeClickListner(mealItem);
+                listner.onAddToPlanClickListner(mealItem);
             }
         });
 

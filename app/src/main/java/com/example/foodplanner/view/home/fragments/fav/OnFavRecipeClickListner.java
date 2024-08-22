@@ -7,4 +7,6 @@ public interface OnFavRecipeClickListner {
     void onFavRecipeClickListner(MealsItem mealItem);
 
     void onDeletIcClickListner(MealsItem mealItem);
+
+    void onAddToPlanClickListner(MealsItem mealItem);
 }
