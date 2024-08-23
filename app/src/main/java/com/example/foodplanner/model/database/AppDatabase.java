@@ -10,7 +10,7 @@ import com.example.foodplanner.model.data.MealsItem;
 import com.example.foodplanner.model.database.data.MealPlan;
 import com.example.foodplanner.model.database.data.MealPlanDao;
 
-@Database(entities = {MealsItem.class, MealPlan.class}, version = 4)
+@Database(entities = {MealsItem.class, MealPlan.class}, version = 5)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instance = null;

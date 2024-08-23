@@ -25,4 +25,10 @@ public interface MealDao {
 
     @Query("SELECT * FROM meals")
     List<MealsItem> getAllMealsList();
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertAll(MealsItem... meals);
+
+    @Query("DELETE FROM meals")
+    void clearTable();
 }

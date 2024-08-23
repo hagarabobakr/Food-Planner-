@@ -16,6 +16,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.foodplanner.R;
+import com.example.foodplanner.model.database.AppDatabase;
+import com.example.foodplanner.model.database.MealDao;
+import com.example.foodplanner.model.database.data.MealPlanDao;
+import com.example.foodplanner.model.database.data.RestoreManager;
 import com.example.foodplanner.presenter.signin.SignInPresenter;
 import com.example.foodplanner.view.home.HomeActivity;
 import com.example.foodplanner.view.signup.SignUpActivity;
@@ -48,8 +52,16 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
         etPassword = findViewById(R.id.etPassword);
         btnSignIn = findViewById(R.id.btnSignIn);
         progressBar = findViewById(R.id.progressBarSign);
-        signInPresenter = new SignInPresenter(this,this);
         signInClickabletxt = findViewById(R.id.signInClickabletxt);
+
+
+        AppDatabase database = AppDatabase.getInstance(this);
+        MealDao mealDao = database.getMealDao();
+        MealPlanDao mealPlanDao = database.mealPlanDao();
+        RestoreManager restoreModel = new RestoreManager(mealDao, mealPlanDao);
+
+
+        signInPresenter = new SignInPresenter(this, this, restoreModel);
 
         signInClickabletxt.setOnClickListener(view -> {
             Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);

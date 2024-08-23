@@ -3,6 +3,7 @@ package com.example.foodplanner.presenter.signin;
 import android.content.Context;
 
 import com.example.foodplanner.R;
+import com.example.foodplanner.model.database.data.RestoreManager;
 import com.example.foodplanner.view.signin.SignInView;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -19,10 +20,12 @@ public class SignInPresenter {
     private GoogleSignInClient mGoogleSignInClient;
     private Context context;
     private FirebaseFirestore db;
+    private RestoreManager restoreModel;
 
-    public SignInPresenter(SignInView signInView, Context context) {
+    public SignInPresenter(SignInView signInView, Context context, RestoreManager restoreModel) {
         this.signInView = signInView;
         this.context = context;
+        this.restoreModel = restoreModel;  // تهيئة RestoreModel
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
@@ -48,6 +51,7 @@ public class SignInPresenter {
                     signInView.hideLoading();
                     if (task.isSuccessful()) {
                         signInView.showSignInSuccess();
+                        restoreModel.restoreData();  // استدعاء وظيفة الاستعادة
                     } else {
                         String errorMessage = task.getException() != null ? task.getException().getMessage() : "Sign in failed";
                         signInView.showSignInFailure(errorMessage);
@@ -64,6 +68,7 @@ public class SignInPresenter {
                     signInView.hideLoading();
                     if (task.isSuccessful()) {
                         signInView.showSignInSuccess();
+                        restoreModel.restoreData();  // استدعاء وظيفة الاستعادة
                     } else {
                         String errorMessage = task.getException() != null ? task.getException().getMessage() : "Sign in failed";
                         signInView.showSignInFailure(errorMessage);
@@ -74,5 +79,4 @@ public class SignInPresenter {
     public GoogleSignInClient getGoogleSignInClient() {
         return mGoogleSignInClient;
     }
-
 }

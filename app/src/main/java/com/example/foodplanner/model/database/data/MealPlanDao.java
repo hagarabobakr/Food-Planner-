@@ -8,6 +8,8 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import com.example.foodplanner.model.data.MealsItem;
+
 import java.util.List;
 
 @Dao
@@ -26,4 +28,10 @@ public interface MealPlanDao {
 
     @Query("SELECT * FROM meal_plan")
     List<MealPlan> getAllMealPlansList();
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertAll(MealPlan... meals);
+
+    @Query("DELETE FROM meal_plan")
+    void clearTable();
 }

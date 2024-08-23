@@ -52,7 +52,7 @@ public class MyPlanFragment extends Fragment implements MyPlanView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.planMealRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         planMealAdapter = new PlanMealAdapter(new ArrayList<>(),getContext());
         recyclerView.setAdapter(planMealAdapter);
         calendarView = view.findViewById(R.id.calendarView);

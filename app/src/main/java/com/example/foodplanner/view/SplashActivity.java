@@ -16,7 +16,7 @@ import com.example.foodplanner.view.home.HomeActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static final int SPLASH_SCREEN_DURATION = 2500; // Duration for splash screen
+    private static final int SPLASH_SCREEN_DURATION = 5000; // Duration for splash screen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,19 +28,19 @@ public class SplashActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView);
 
         // Load animations
-        Animation fadeInImage = AnimationUtils.loadAnimation(this, R.anim.fade_in_image);
+        //Animation fadeInImage = AnimationUtils.loadAnimation(this, R.anim.fade_in_image);
         Animation fadeInText = AnimationUtils.loadAnimation(this, R.anim.fade_in_image);  
 
         // Set initial visibility
-        imageView.setVisibility(ImageView.INVISIBLE);
+       // imageView.setVisibility(ImageView.INVISIBLE);
         textView.setVisibility(TextView.INVISIBLE);
 
         // Start the image animation
-        imageView.postDelayed(() -> {
+        /*imageView.postDelayed(() -> {
             imageView.setVisibility(ImageView.VISIBLE);
             imageView.startAnimation(fadeInImage);
         }, 500); // Delay before starting image animation
-
+*/
         // Start the text animation after the image animation
         textView.postDelayed(() -> {
             textView.setVisibility(TextView.VISIBLE);

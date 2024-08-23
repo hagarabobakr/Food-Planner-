@@ -32,7 +32,7 @@ public class PlanMealAdapter extends RecyclerView.Adapter<PlanMealAdapter.PlanMe
     @Override
     public PlanMealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_meal, parent, false);
+                .inflate(R.layout.plan_item, parent, false);
         return new PlanMealAdapter.PlanMealViewHolder(view);
     }
 
@@ -47,6 +47,7 @@ public class PlanMealAdapter extends RecyclerView.Adapter<PlanMealAdapter.PlanMe
                 .into(holder.mealImage);
 
         holder.mealName.setText(mealPlan.getStrMeal());
+        holder.mealType.setText(mealPlan.getMealType());
     }
 
     @Override
@@ -56,11 +57,12 @@ public class PlanMealAdapter extends RecyclerView.Adapter<PlanMealAdapter.PlanMe
 
     static class PlanMealViewHolder extends RecyclerView.ViewHolder {
         private ImageView mealImage,deleteIc;
-        private TextView mealName;
+        private TextView mealName,mealType;
         PlanMealViewHolder(View itemView) {
             super(itemView);
             mealImage = itemView.findViewById(R.id.meal_image);
             mealName = itemView.findViewById(R.id.meal_name);
+            mealType = itemView.findViewById(R.id.meal_type);
         }
     }
 }

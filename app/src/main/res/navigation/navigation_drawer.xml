@@ -36,7 +36,7 @@
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/logOutFragment"
-        android:name="com.example.foodplanner.view.home.fragments.LogOutFragment"
+        android:name="com.example.foodplanner.view.home.fragments.logout.LogOutFragment"
         android:label="fragment_log_out"
         tools:layout="@layout/fragment_log_out" />
 </navigation>
