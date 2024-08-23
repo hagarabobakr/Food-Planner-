@@ -12,12 +12,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.presenter.signin.SignInPresenter;
 import com.example.foodplanner.view.home.HomeActivity;
 import com.example.foodplanner.view.signup.SignUpActivity;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 
 public class SignInActivity extends AppCompatActivity implements SignInView {
 
@@ -26,12 +31,15 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
     private ProgressBar progressBar;
     private SignInPresenter signInPresenter;
     private TextView signInClickabletxt;
-    private ImageView google,facebook,twitter,github;
+    private ImageView google, facebook, twitter, github;
+
+    private static final int RC_SIGN_IN = 9001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
         google = findViewById(R.id.google_icon);
         facebook = findViewById(R.id.facebook_icon);
         twitter = findViewById(R.id.twitter_icon);
@@ -40,14 +48,12 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
         etPassword = findViewById(R.id.etPassword);
         btnSignIn = findViewById(R.id.btnSignIn);
         progressBar = findViewById(R.id.progressBarSign);
-        signInPresenter = new SignInPresenter(this);
+        signInPresenter = new SignInPresenter(this,this);
         signInClickabletxt = findViewById(R.id.signInClickabletxt);
-        signInClickabletxt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
-                startActivity(intent);
-            }
+
+        signInClickabletxt.setOnClickListener(view -> {
+            Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
+            startActivity(intent);
         });
 
         btnSignIn.setOnClickListener(view -> {
@@ -66,6 +72,13 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
 
             signInPresenter.signIn(email, password);
         });
+
+        google.setOnClickListener(v -> signInWithGoogle());
+    }
+
+    private void signInWithGoogle() {
+        Intent signInIntent = signInPresenter.getGoogleSignInClient().getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     @Override
@@ -99,5 +112,22 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
         String emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
         return email != null && email.matches(emailPattern);
     }
-}
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                if (account != null) {
+                    signInPresenter.signInWithGoogle(account.getIdToken());
+                }
+            } catch (ApiException e) {
+                // Handle sign-in failure
+                Toast.makeText(this, "Google sign-in failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+}

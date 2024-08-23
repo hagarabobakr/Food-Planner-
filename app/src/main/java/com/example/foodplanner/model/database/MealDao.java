@@ -22,4 +22,7 @@ public interface MealDao {
 
     @Delete
     void deleteMeal(MealsItem meal);
+
+    @Query("SELECT * FROM meals")
+    List<MealsItem> getAllMealsList();
 }

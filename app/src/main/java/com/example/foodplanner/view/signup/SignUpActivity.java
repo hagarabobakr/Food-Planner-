@@ -19,6 +19,14 @@ import com.example.foodplanner.presenter.signup.SignUpPresenter;
 import com.example.foodplanner.view.WelcomeActivity;
 import com.example.foodplanner.view.home.HomeActivity;
 import com.example.foodplanner.view.signin.SignInActivity;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 public class SignUpActivity extends AppCompatActivity implements SignUpView {
     private SignUpPresenter presenter;
@@ -27,7 +35,9 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
     private ProgressBar progressBar;
     private CheckBox cbAgree;
     private TextView signInClickabletxt;
-    private ImageView google,facebook,twitter,github;
+    private ImageView google, facebook, twitter, github;
+    private GoogleSignInClient mGoogleSignInClient;
+    private static final int RC_SIGN_IN = 9001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +57,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
         github = findViewById(R.id.github_icon);
         cbAgree = findViewById(R.id.cbAgree);
         signInClickabletxt = findViewById(R.id.signInClickabletxt);
+
         signInClickabletxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,25 +65,32 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
                 startActivity(intent);
             }
         });
+
+        google.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signInWithGoogle();
+            }
+        });
+
         facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(SignUpActivity.this, "SOON", Toast.LENGTH_SHORT).show();
-
             }
         });
+
         twitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(SignUpActivity.this, "SOON", Toast.LENGTH_SHORT).show();
-
             }
         });
+
         github.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(SignUpActivity.this, "SOON", Toast.LENGTH_SHORT).show();
-
             }
         });
 
@@ -102,12 +120,44 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
 
             presenter.signUp(email, password);
         });
+
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+    }
+
+    private void signInWithGoogle() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account.getIdToken());
+            } catch (ApiException e) {
+                Toast.makeText(this, "Google sign in failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void firebaseAuthWithGoogle(String idToken) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+        presenter.signUpWithGoogle(credential);
     }
 
     @Override
     public void onSignUpSuccess() {
         Toast.makeText(this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
-        // Save login state
         SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("is_logged_in", true);
@@ -143,4 +193,3 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
         return password != null && password.matches(passwordPattern);
     }
 }
-

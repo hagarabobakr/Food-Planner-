@@ -23,4 +23,7 @@ public interface MealPlanDao {
 
     @Query("SELECT * FROM meal_plan WHERE day_number = :day AND month = :month AND year = :year")
     LiveData<List<MealPlan>> getMealsByDate(int day, int month, int year);
+
+    @Query("SELECT * FROM meal_plan")
+    List<MealPlan> getAllMealPlansList();
 }

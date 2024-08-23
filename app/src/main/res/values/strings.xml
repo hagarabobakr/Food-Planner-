@@ -40,4 +40,6 @@
     <string name="by_category">By Category</string>
     <string name="do_not_have_an_account">Do not have an account?</string>
     <string name="already_have_an_account">Already have an account?</string>
+    <string name="default_web_client_id">348930496442-tui1g0oiv3riaca7fkl8el5tq25et34j.apps.googleusercontent.com</string>
+
 </resources>

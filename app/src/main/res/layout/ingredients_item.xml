@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/food_no_meat_svgrepo_com" />
+        app:srcCompat="@drawable/food_hor_mok_svgrepo_com" />
 
     <TextView
         android:id="@+id/ingredient_text"

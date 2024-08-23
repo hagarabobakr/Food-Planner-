@@ -24,7 +24,6 @@
         android:id="@+id/navigator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:headerLayout="@layout/header_layout"
         android:layout_gravity="start"
         app:menu="@menu/menu_drawer"
         />
