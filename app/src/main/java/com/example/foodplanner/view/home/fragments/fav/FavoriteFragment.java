@@ -1,7 +1,6 @@
 package com.example.foodplanner.view.home.fragments.fav;
 
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -22,11 +21,10 @@ import android.widget.Toast;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.MealsItem;
-import com.example.foodplanner.model.database.MealItemEntity;
 import com.example.foodplanner.model.database.MealsLocalDataSource;
+import com.example.foodplanner.model.database.data.MealPlan;
 import com.example.foodplanner.presenter.home.fav.FavMealPresenter;
 import com.example.foodplanner.view.home.details.MealDetailsActivity;
-import com.example.foodplanner.view.home.random.RandumMealAdapter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -119,7 +117,16 @@ public class FavoriteFragment extends Fragment implements OnFavRecipeClickListne
     }
     private void handleMealSelection(MealsItem mealItem, String date, String mealType) {
         // Process the mealItem with the selected date and meal type
-        Toast.makeText(getContext(), "Meal Item: " + mealItem.getStrMeal()+ "\nDate: " + date + "\nMeal Type: " + mealType, Toast.LENGTH_LONG).show();
+        String[] dateParts = date.split("/");
+        int day = Integer.parseInt(dateParts[0]);
+        int month = Integer.parseInt(dateParts[1]);
+        int year = Integer.parseInt(dateParts[2]);
+        MealsItem meal = new MealsItem();
+        MealPlan mealPlan = mealItem.toMealPlan(mealType, day, month, year);
+        presenter.insertPlanedMeal(mealPlan);
+        Toast.makeText(getContext()
+                , "Meal Item: " + mealItem.getStrMeal()+ "\nDate: " + date + "\nMeal Type: " + mealType
+                , Toast.LENGTH_LONG).show();
         // You can also add code here to save this data or perform other actions
     }
 

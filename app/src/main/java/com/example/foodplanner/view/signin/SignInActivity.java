@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -15,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.foodplanner.R;
 import com.example.foodplanner.presenter.signin.SignInPresenter;
 import com.example.foodplanner.view.home.HomeActivity;
+import com.example.foodplanner.view.signup.SignUpActivity;
 
 public class SignInActivity extends AppCompatActivity implements SignInView {
 
@@ -22,17 +25,30 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
     private Button btnSignIn;
     private ProgressBar progressBar;
     private SignInPresenter signInPresenter;
+    private TextView signInClickabletxt;
+    private ImageView google,facebook,twitter,github;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-
+        google = findViewById(R.id.google_icon);
+        facebook = findViewById(R.id.facebook_icon);
+        twitter = findViewById(R.id.twitter_icon);
+        github = findViewById(R.id.github_icon);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnSignIn = findViewById(R.id.btnSignIn);
         progressBar = findViewById(R.id.progressBarSign);
         signInPresenter = new SignInPresenter(this);
+        signInClickabletxt = findViewById(R.id.signInClickabletxt);
+        signInClickabletxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btnSignIn.setOnClickListener(view -> {
             String email = etEmail.getText().toString().trim();

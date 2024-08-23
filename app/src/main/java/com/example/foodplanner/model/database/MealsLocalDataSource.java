@@ -1,6 +1,7 @@
 package com.example.foodplanner.model.database;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Room;
@@ -12,6 +13,7 @@ import com.example.foodplanner.model.database.data.MealPlanDao;
 import java.util.List;
 
 public class MealsLocalDataSource {
+    private static final String TAG = "MealsLocalDataSource";
     AppDatabase db;
     private final MealDao mealDao;
     private MealPlanDao mealPlanDao;
@@ -39,6 +41,7 @@ public class MealsLocalDataSource {
 
     public LiveData<List<MealsItem>> getAllMeals() {
         return mealItemList;
+
     }
 
     public void insertMeal(MealsItem meal) {
@@ -58,6 +61,7 @@ public class MealsLocalDataSource {
         return mealPlanList;
     }
     public void insertPlanMeal(MealPlan meal) {
+        Log.i(TAG, "insertPlanMeal: ");
         new Thread(() -> {
             mealPlanDao.insertPlanMeal(meal);
         }).start();
@@ -66,6 +70,9 @@ public class MealsLocalDataSource {
         new Thread(() -> {
             mealPlanDao.deletePlanMeal(meal);
         }).start();
+    }
+    public LiveData<List<MealPlan>> getMealsByDate(int day, int month, int year) {
+        return mealPlanDao.getMealsByDate(day, month, year);
     }
 
 }

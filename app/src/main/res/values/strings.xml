@@ -38,4 +38,6 @@
     <string name="by_country">By Country</string>
     <string name="by_ingredient">By Ingredient</string>
     <string name="by_category">By Category</string>
+    <string name="do_not_have_an_account">Do not have an account?</string>
+    <string name="already_have_an_account">Already have an account?</string>
 </resources>

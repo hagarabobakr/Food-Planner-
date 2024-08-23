@@ -10,9 +10,9 @@ import java.io.Serializable;
 @Entity(tableName = "meal_plan")
 public class MealPlan implements Serializable {
     @NonNull
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "meal_plan_id")
-    private String mealPlanId; // Unique ID for each meal plan entry
+    private int mealPlanId; // Unique ID for each meal plan entry
 
     @ColumnInfo(name = "idMeal")
     private String idMeal;
@@ -180,11 +180,11 @@ public class MealPlan implements Serializable {
 
     // Getters and Setters for all fields
 
-    public String getMealPlanId() {
+    public int getMealPlanId() {
         return mealPlanId;
     }
 
-    public void setMealPlanId(String mealPlanId) {
+    public void setMealPlanId(int mealPlanId) {
         this.mealPlanId = mealPlanId;
     }
 

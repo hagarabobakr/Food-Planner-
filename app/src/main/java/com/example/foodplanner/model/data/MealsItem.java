@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.foodplanner.model.database.data.MealPlan;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -603,30 +604,65 @@ public class MealsItem implements Serializable {
 		this.strMeasure20 = strMeasure20;
 	}
 
-	public String getIngredient(int index) {
-		switch (index) {
-			case 1: return strIngredient1;
-			case 2: return strIngredient2;
-			case 3: return strIngredient3;
-			case 4: return strIngredient4;
-			case 5: return strIngredient5;
-			case 6: return strIngredient6;
-			case 7: return strIngredient7;
-			case 8: return strIngredient8;
-			case 9: return strIngredient9;
-			case 10: return strIngredient10;
-			case 11: return strIngredient11;
-			case 12: return strIngredient12;
-			case 13: return strIngredient13;
-			case 14: return strIngredient14;
-			case 15: return strIngredient15;
-			case 16: return strIngredient16;
-			case 17: return strIngredient17;
-			case 18: return strIngredient18;
-			case 19: return strIngredient19;
-			case 20: return strIngredient20;
-			default: return "";
-		}
+	public MealPlan toMealPlan(String mealType,/* String dayName,*/ int dayNumber, int month, int year) {
+		MealPlan mealPlan = new MealPlan();
+		mealPlan.setIdMeal(this.idMeal);
+		mealPlan.setStrMeal(this.strMeal);
+		mealPlan.setStrCategory(this.strCategory);
+		mealPlan.setStrArea(this.strArea);
+		mealPlan.setStrInstructions(this.strInstructions);
+		mealPlan.setStrMealThumb(this.strMealThumb);
+		mealPlan.setStrYoutube(this.strYoutube);
+		mealPlan.setStrTags(this.strTags);
+		mealPlan.setStrIngredient1(this.strIngredient1);
+		mealPlan.setStrIngredient2(this.strIngredient2);
+		mealPlan.setStrIngredient3(this.strIngredient3);
+		mealPlan.setStrIngredient4(this.strIngredient4);
+		mealPlan.setStrIngredient5(this.strIngredient5);
+		mealPlan.setStrIngredient6(this.strIngredient6);
+		mealPlan.setStrIngredient7(this.strIngredient7);
+		mealPlan.setStrIngredient8(this.strIngredient8);
+		mealPlan.setStrIngredient9(this.strIngredient9);
+		mealPlan.setStrIngredient10(this.strIngredient10);
+		mealPlan.setStrIngredient11(this.strIngredient11);
+		mealPlan.setStrIngredient12(this.strIngredient12);
+		mealPlan.setStrIngredient13(this.strIngredient13);
+		mealPlan.setStrIngredient14(this.strIngredient14);
+		mealPlan.setStrIngredient15(this.strIngredient15);
+		mealPlan.setStrIngredient16(this.strIngredient16);
+		mealPlan.setStrIngredient17(this.strIngredient17);
+		mealPlan.setStrIngredient18(this.strIngredient18);
+		mealPlan.setStrIngredient19(this.strIngredient19);
+		mealPlan.setStrIngredient20(this.strIngredient20);
+
+		mealPlan.setStrMeasure1(this.strMeasure1);
+		mealPlan.setStrMeasure2(this.strMeasure2);
+		mealPlan.setStrMeasure3(this.strMeasure3);
+		mealPlan.setStrMeasure4(this.strMeasure4);
+		mealPlan.setStrMeasure5(this.strMeasure5);
+		mealPlan.setStrMeasure6(this.strMeasure6);
+		mealPlan.setStrMeasure7(this.strMeasure7);
+		mealPlan.setStrMeasure8(this.strMeasure8);
+		mealPlan.setStrMeasure9(this.strMeasure9);
+		mealPlan.setStrMeasure10(this.strMeasure10);
+		mealPlan.setStrMeasure11(this.strMeasure11);
+		mealPlan.setStrMeasure12(this.strMeasure12);
+		mealPlan.setStrMeasure13(this.strMeasure13);
+		mealPlan.setStrMeasure14(this.strMeasure14);
+		mealPlan.setStrMeasure15(this.strMeasure15);
+		mealPlan.setStrMeasure16(this.strMeasure16);
+		mealPlan.setStrMeasure17(this.strMeasure17);
+		mealPlan.setStrMeasure18(this.strMeasure18);
+		mealPlan.setStrMeasure19(this.strMeasure19);
+		mealPlan.setStrMeasure20(this.strMeasure20);
+		// [Set the rest of the ingredients and measures similarly]
+		mealPlan.setMealType(mealType);
+		//mealPlan.setDayName(dayName);
+		mealPlan.setDayNumber(dayNumber);
+		mealPlan.setMonth(month);
+		mealPlan.setYear(year);
+		return mealPlan;
+
 	}
 
 }

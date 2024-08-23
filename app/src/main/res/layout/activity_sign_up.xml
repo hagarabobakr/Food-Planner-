@@ -76,6 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="32dp"
             android:layout_marginTop="24dp"
+            android:fontFamily="@font/cfsabinettademo"
             android:background="@drawable/rounded_edittext"
             android:hint="@string/enter_full_name"
             android:inputType="textPersonName"
@@ -93,6 +94,7 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/rounded_edittext"
             android:hint="@string/enter_email"
+            android:fontFamily="@font/cfsabinettademo"
             android:inputType="textEmailAddress"
             android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -108,6 +110,7 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/rounded_edittext"
             android:hint="@string/enter_password"
+            android:fontFamily="@font/cfsabinettademo"
             android:inputType="textPassword"
             android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -121,6 +124,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/cfsabinettademo"
             android:text="@string/i_agree_to_the_processing_of"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etPassword" />
@@ -131,6 +135,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/personal_data"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/cfsabinettademo"
             android:textColor="#131842"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/cbAgree"
@@ -158,6 +164,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/sign_up_with"
+            android:fontFamily="@font/cfsabinettademo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnSignUp" />
@@ -176,10 +183,11 @@
 
             <!-- Facebook Icon -->
             <ImageView
+                android:id="@+id/google_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:contentDescription="Facebook"
-                android:src="@drawable/facebook_icon" />
+                android:src="@drawable/google_icon" />
 
             <!-- Space -->
             <Space
@@ -188,6 +196,7 @@
 
             <!-- Twitter Icon -->
             <ImageView
+                android:id="@+id/twitter_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:contentDescription="Twitter"
@@ -200,10 +209,11 @@
 
             <!-- Google Icon -->
             <ImageView
+                android:id="@+id/facebook_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:contentDescription="Google"
-                android:src="@drawable/google_icon" />
+                android:src="@drawable/facebook_icon" />
 
             <!-- Space -->
             <Space
@@ -212,6 +222,7 @@
 
             <!-- Apple Icon -->
             <ImageView
+                android:id="@+id/github_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:contentDescription="github"
@@ -225,18 +236,19 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:text="Already have an account? "
+            android:text="@string/already_have_an_account"
+            android:fontFamily="@font/cfsabinettademo"
             android:textColor="#131842"
             android:textSize="14sp"
             app:layout_constraintTop_toBottomOf="@+id/l2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
         <TextView
-            android:id="@+id/signUp"
+            android:id="@+id/signInClickabletxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign in"
+            android:text="@string/sign_in"
+            android:fontFamily="@font/cfsabinettademo"
             android:textColor="@color/blue"
             android:textSize="14sp"
             android:textStyle="bold"

@@ -77,6 +77,7 @@
             android:layout_marginHorizontal="16dp"
             android:background="@drawable/rounded_edittext"
             android:hint="@string/enter_email"
+            android:fontFamily="@font/cfsabinettademo"
             android:inputType="textEmailAddress"
             android:padding="16dp"
             app:layout_constraintTop_toBottomOf="@id/tvTitle"
@@ -92,6 +93,7 @@
             android:layout_marginHorizontal="16dp"
             android:background="@drawable/rounded_edittext"
             android:hint="@string/enter_password"
+            android:fontFamily="@font/cfsabinettademo"
             android:inputType="textPassword"
             android:padding="16dp"
             app:layout_constraintTop_toBottomOf="@id/etEmail"
@@ -119,6 +121,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/sign_in_with"
+            android:fontFamily="@font/cfsabinettademo"
             app:layout_constraintTop_toBottomOf="@id/btnSignIn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -137,10 +140,11 @@
 
             <!-- Facebook Icon -->
             <ImageView
+                android:id="@+id/google_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:contentDescription="Facebook"
-                android:src="@drawable/facebook_icon" />
+                android:src="@drawable/google_icon" />
 
             <!-- Space -->
             <Space
@@ -149,6 +153,7 @@
 
             <!-- Twitter Icon -->
             <ImageView
+                android:id="@+id/twitter_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:contentDescription="Twitter"
@@ -161,10 +166,11 @@
 
             <!-- Google Icon -->
             <ImageView
+                android:id="@+id/facebook_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:contentDescription="Google"
-                android:src="@drawable/google_icon" />
+                android:src="@drawable/facebook_icon" />
 
             <!-- Space -->
             <Space
@@ -173,10 +179,35 @@
 
             <!-- Apple Icon -->
             <ImageView
+                android:id="@+id/github_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:contentDescription="Apple"
+                android:contentDescription="github"
                 android:src="@drawable/github_icon" />
         </LinearLayout>
+        <TextView
+            android:id="@+id/tvSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/do_not_have_an_account"
+            android:fontFamily="@font/cfsabinettademo"
+            android:textColor="#131842"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/l2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/signInClickabletxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_up"
+            android:fontFamily="@font/cfsabinettademo"
+            android:textColor="@color/blue"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/tvSignIn"
+            app:layout_constraintTop_toTopOf="@+id/tvSignIn" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

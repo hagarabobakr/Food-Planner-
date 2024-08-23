@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface MyPlanView {
     void showLocalData(LiveData<List<MealPlan>> allPlanedMeals);
+
+    void showMealsByDate(LiveData<List<MealPlan>> mealsByDate);
 }
