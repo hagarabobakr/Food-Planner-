@@ -52,7 +52,6 @@ public class SettingsFragment extends Fragment {
         cbDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
             sharedPreferences.edit().putBoolean("dark_mode_enabled", isChecked).apply();
             // Code to switch app theme mode
-            // Implement theme change logic if required
         });
 
         tvChangeLanguage.setOnClickListener(v -> {

@@ -1,7 +1,7 @@
 package com.example.foodplanner.presenter.home.details;
 
 import com.example.foodplanner.model.data.MealsItem;
-import com.example.foodplanner.model.database.MealsLocalDataSource;
+import com.example.foodplanner.model.source.MealsLocalDataSource;
 import com.example.foodplanner.view.home.details.MealDetailsView;
 
 public class MealDetailsPresenter {

@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.MealsItem;
-import com.example.foodplanner.model.database.MealsLocalDataSource;
+import com.example.foodplanner.model.source.MealsLocalDataSource;
 import com.example.foodplanner.model.database.data.MealPlan;
 import com.example.foodplanner.presenter.home.fav.FavMealPresenter;
 import com.example.foodplanner.view.home.details.MealDetailsActivity;

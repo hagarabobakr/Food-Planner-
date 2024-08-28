@@ -1,4 +1,4 @@
-package com.example.foodplanner.model.database;
+package com.example.foodplanner.model.source;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,6 +7,8 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 
 import com.example.foodplanner.model.data.MealsItem;
+import com.example.foodplanner.model.database.AppDatabase;
+import com.example.foodplanner.model.database.MealDao;
 import com.example.foodplanner.model.database.data.MealPlan;
 import com.example.foodplanner.model.database.data.MealPlanDao;
 

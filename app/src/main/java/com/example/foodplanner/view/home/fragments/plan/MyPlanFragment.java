@@ -16,16 +16,16 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 
 import com.example.foodplanner.R;
-import com.example.foodplanner.model.database.MealsLocalDataSource;
+import com.example.foodplanner.model.data.MealsItem;
+import com.example.foodplanner.model.source.MealsLocalDataSource;
 import com.example.foodplanner.model.database.data.MealPlan;
 import com.example.foodplanner.presenter.home.plan.MyPlanPresenter;
-import com.example.foodplanner.view.home.fragments.fav.FavMealAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MyPlanFragment extends Fragment implements MyPlanView {
+public class MyPlanFragment extends Fragment implements MyPlanView,OnPlanedRecipeClickListner {
     MyPlanPresenter myPlanPresenter;
     private CalendarView calendarView;
     private int selectedYear;
@@ -53,7 +53,7 @@ public class MyPlanFragment extends Fragment implements MyPlanView {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.planMealRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        planMealAdapter = new PlanMealAdapter(new ArrayList<>(),getContext());
+        planMealAdapter = new PlanMealAdapter(new ArrayList<>(),getContext(),this);
         recyclerView.setAdapter(planMealAdapter);
         calendarView = view.findViewById(R.id.calendarView);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -80,7 +80,7 @@ public class MyPlanFragment extends Fragment implements MyPlanView {
             @Override
             public void onChanged(@Nullable List<MealPlan> mealPlans) {
                 if (mealPlans != null && !mealPlans.isEmpty()) {
-                    planMealAdapter = new PlanMealAdapter(mealPlans,getContext());
+                    planMealAdapter = new PlanMealAdapter(mealPlans,getContext(),MyPlanFragment.this);
                     recyclerView.setAdapter(planMealAdapter);
                     planMealAdapter.notifyDataSetChanged();
 
@@ -88,5 +88,10 @@ public class MyPlanFragment extends Fragment implements MyPlanView {
             }
         });
     }
+
+    @Override
+    public void onPlanedRecipeClickListner(MealsItem mealItem) {
+
     }
+}
 

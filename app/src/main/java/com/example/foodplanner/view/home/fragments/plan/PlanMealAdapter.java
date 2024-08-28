@@ -22,10 +22,12 @@ import java.util.List;
 public class PlanMealAdapter extends RecyclerView.Adapter<PlanMealAdapter.PlanMealViewHolder>{
     private Context context;
     private final List<MealPlan> planMealsList;
+    private OnPlanedRecipeClickListner onPlanedRecipeClickListner;
 
-    public PlanMealAdapter(List<MealPlan> planMealsList, Context context) {
+    public PlanMealAdapter(List<MealPlan> planMealsList, Context context,OnPlanedRecipeClickListner onPlanedRecipeClickListner) {
         this.planMealsList = planMealsList;
         this.context = context;
+        this.onPlanedRecipeClickListner = onPlanedRecipeClickListner;
     }
 
     @NonNull
@@ -48,6 +50,7 @@ public class PlanMealAdapter extends RecyclerView.Adapter<PlanMealAdapter.PlanMe
 
         holder.mealName.setText(mealPlan.getStrMeal());
         holder.mealType.setText(mealPlan.getMealType());
+
     }
 
     @Override

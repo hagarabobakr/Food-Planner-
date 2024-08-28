@@ -63,8 +63,14 @@ public class FavMealAdapter extends RecyclerView.Adapter<FavMealAdapter.MealView
                 listner.onDeletIcClickListner(mealItem);
             }
         });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listner.onFavRecipeClickListner(mealItem);
+            }
+        });
     }
-//listner.onFavRecipeClickListner(mealItem);
+
     @Override
     public int getItemCount() {
         return favMeals.size();
