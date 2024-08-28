@@ -2,7 +2,9 @@ package com.example.foodplanner.presenter.home;
 
 import com.example.foodplanner.model.data.CategoriesItem;
 import com.example.foodplanner.model.data.MealsItem;
-import com.example.foodplanner.model.network.RetrofitClient;
+import com.example.foodplanner.model.database.MealsLocalDataSourceImpl;
+import com.example.foodplanner.model.network.MealsRemoteDataSourceImpl;
+import com.example.foodplanner.model.repo.MealsRepositoryImpl;
 import com.example.foodplanner.view.home.HomeView;
 
 import java.util.ArrayList;
@@ -10,42 +12,52 @@ import java.util.List;
 
 public class HomePresenter implements HomeNetworkCallBack {
     private HomeView view;
-    private RetrofitClient retrofitClient;
+   // private MealsRemoteDataSourceImpl mealsRemoteDataSourceImpl;
+    private MealsRepositoryImpl repository;
 
 
-    public HomePresenter(HomeView view, RetrofitClient _retrofitClient) {
+    public HomePresenter(HomeView view, MealsRemoteDataSourceImpl mealsRemoteDataSourceImpl, MealsLocalDataSourceImpl mealsLocalDataSource) {
         this.view = view;
-        retrofitClient = _retrofitClient;
+        repository = MealsRepositoryImpl.getInstance(mealsLocalDataSource,mealsRemoteDataSourceImpl);
     }
 
     public void getRandumMeal() {
-        retrofitClient.makeGetRandomMealNetworkCall(this);
+       // mealsRemoteDataSourceImpl.makeGetRandomMealNetworkCall(this);
+        repository.getRandomMeal(this);
     }
 
     public void getCatigoryIteams() {
-        retrofitClient.makeGetCatigoryItemsNetworkCall(this);
+      //  mealsRemoteDataSourceImpl.makeGetCatigoryItemsNetworkCall(this);
+        repository.getCategoryItems(this);
     }
 
     public void getMealDetails(String id) {
-        retrofitClient.makeGetHomeMealDetailsNetworkCall(this, id);
+       // mealsRemoteDataSourceImpl.makeGetHomeMealDetailsNetworkCall(this, id);
+        repository.getMealDetails(this,id);
     }
 
     public void getCountries() {
-        retrofitClient.makeGetCountryNetworkCall(this);
+
+        //mealsRemoteDataSourceImpl.makeGetCountryNetworkCall(this);
+        repository.getCountry(this);
     }
 
     public void getMealsByCategorie(String category) {
-        retrofitClient.makeGetMealsByCategoryNetworkCall(this, category);
+        //mealsRemoteDataSourceImpl.makeGetMealsByCategoryNetworkCall(this, category);
+        repository.getMealsByCategory(this,category);
     }
     public void getMealsByFirstLitter(String litter) {
-        retrofitClient.makeGetMealsByFirstLitterNetworkCall(this, litter);
+        //mealsRemoteDataSourceImpl.makeGetMealsByFirstLitterNetworkCall(this, litter);
+        repository.getMealsByFirstLetter(this,litter);
     }
 
     public void getMealsByCountry(String country) {
-        retrofitClient.makeGetMealsByCountryNetworkCall(this, country);
+        //mealsRemoteDataSourceImpl.makeGetMealsByCountryNetworkCall(this, country);
+        repository.getMealsByCountry(this,country);
     }
     public void getMealsByIngredient(String ingredient) {
-        retrofitClient.makeGetMealsByIngredientNetworkCall(this, ingredient);
+        //mealsRemoteDataSourceImpl.makeGetMealsByIngredientNetworkCall(this, ingredient);
+        repository.getMealsByIngredient(this,ingredient);
     }
 
 
@@ -58,21 +70,14 @@ public class HomePresenter implements HomeNetworkCallBack {
     public void onPopulerMealSuccessResult(List<MealsItem> meals) {
     }
 
-    @Override
-    public void onRandumMealFailureResult(String errorMsg) {
 
-        view.showError(errorMsg);
-    }
 
     @Override
     public void onCatigoryItemsSuccessResult(List<CategoriesItem> categoriesItems) {
         view.showCategories(categoriesItems);
     }
 
-    @Override
-    public void onCatigoryItemsFailureResult(String errorMsg) {
-        view.showError(errorMsg);
-    }
+
 
     @Override
     public void onMealDetailsSuccessResult(List<MealsItem> meals) {
@@ -83,10 +88,7 @@ public class HomePresenter implements HomeNetworkCallBack {
         }
     }
 
-    @Override
-    public void onMealDetailsFailureResult(String message) {
-        view.showError(message);
-    }
+
 
     @Override
     public void onGetCountrySuccessResult(List<MealsItem> meals) {
@@ -115,5 +117,10 @@ public class HomePresenter implements HomeNetworkCallBack {
     @Override
     public void onGetMealsByIngredientSuccessResult(List<MealsItem> meals) {
         view.showMealsByIngredient(meals);
+    }
+
+    @Override
+    public void onMealFailureResult(String message) {
+        view.showError(message);
     }
 }

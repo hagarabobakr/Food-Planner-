@@ -17,14 +17,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RetrofitClient {
+public class MealsRemoteDataSourceImpl {
     private static Retrofit retrofit;
     private static final String TAG = "RetrofitClient";
     private static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
-    public static RetrofitClient retrofitClient = null;
+    public static MealsRemoteDataSourceImpl mealsRemoteDataSourceImpl = null;
     private MealApi mealApi;
 
-    private RetrofitClient(){
+    private MealsRemoteDataSourceImpl(){
 
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -40,11 +40,11 @@ public class RetrofitClient {
         mealApi = retrofit.create(MealApi.class);
     }
 
-    public static RetrofitClient getRetrofitInstance() {
-        if(retrofitClient == null){
-            retrofitClient = new RetrofitClient();
+    public static MealsRemoteDataSourceImpl getInstance() {
+        if(mealsRemoteDataSourceImpl == null){
+            mealsRemoteDataSourceImpl = new MealsRemoteDataSourceImpl();
         }
-        return retrofitClient;
+        return mealsRemoteDataSourceImpl;
     }
 
     public void makeGetRandomMealNetworkCall (HomeNetworkCallBack homeNetworkCallback){
@@ -61,7 +61,7 @@ public class RetrofitClient {
             @Override
             public void onFailure(Call<MealResponse> call, Throwable throwable) {
                 Log.i(TAG ,"onFailureeee MealResponse: CallBack ");
-                homeNetworkCallback.onRandumMealFailureResult(throwable.getMessage());
+                homeNetworkCallback.onMealFailureResult(throwable.getMessage());
                 throwable.printStackTrace();
             }
         });
@@ -80,7 +80,7 @@ public class RetrofitClient {
             @Override
             public void onFailure(Call<CategoryResponse> call, Throwable throwable) {
                 Log.i(TAG ,"onFailureeee CategoryResponse: CallBack ");
-                homeNetworkCallback.onCatigoryItemsFailureResult(throwable.getMessage());
+                homeNetworkCallback.onMealFailureResult(throwable.getMessage());
                 throwable.printStackTrace();
             }
         });
@@ -94,14 +94,14 @@ public class RetrofitClient {
                     Log.i(TAG ,"onResponse MealDetailResponse: CallBack "+response.body().getMeals());
                    homeNetworkCallBack.onMealDetailsSuccessResult(response.body().getMeals());
                 }else {
-                    homeNetworkCallBack.onMealDetailsFailureResult("No details found");
+                    homeNetworkCallBack.onMealFailureResult("No details found");
                 }
             }
 
             @Override
             public void onFailure(Call<MealDetailResponse> call, Throwable throwable) {
                 Log.i(TAG ,"onFailureeee MealDetailResponse: CallBack ");
-                homeNetworkCallBack.onMealDetailsFailureResult(throwable.getMessage());
+                homeNetworkCallBack.onMealFailureResult(throwable.getMessage());
                 throwable.printStackTrace();
             }
         });
@@ -144,7 +144,7 @@ public class RetrofitClient {
             @Override
             public void onFailure(Call<CountryResponse> call, Throwable throwable) {
                 Log.i(TAG ,"onFailure CountryResponse: CallBack ");
-                homeNetworkCallback.onMealDetailsFailureResult(throwable.getMessage());
+                homeNetworkCallback.onMealFailureResult(throwable.getMessage());
                 throwable.printStackTrace();
             }
         });
@@ -163,7 +163,7 @@ public class RetrofitClient {
             @Override
             public void onFailure(Call<MealResponse> call, Throwable throwable) {
                 Log.i(TAG ,"onFailure GetMealsByCategorieNetworkCall: CallBack ");
-                homeNetworkCallback.onMealDetailsFailureResult(throwable.getMessage());
+                homeNetworkCallback.onMealFailureResult(throwable.getMessage());
                 throwable.printStackTrace();
             }
         });
@@ -182,7 +182,7 @@ public class RetrofitClient {
             @Override
             public void onFailure(Call<MealResponse> call, Throwable throwable) {
                 Log.i(TAG ,"onFailure GetMealsByCountry: CallBack ");
-                homeNetworkCallback.onMealDetailsFailureResult(throwable.getMessage());
+                homeNetworkCallback.onMealFailureResult(throwable.getMessage());
                 throwable.printStackTrace();
             }
         });
@@ -201,7 +201,7 @@ public class RetrofitClient {
             @Override
             public void onFailure(Call<MealResponse> call, Throwable throwable) {
                 Log.i(TAG ,"onFailure GetMealsByCountry: CallBack ");
-                homeNetworkCallback.onMealDetailsFailureResult(throwable.getMessage());
+                homeNetworkCallback.onMealFailureResult(throwable.getMessage());
                 throwable.printStackTrace();
             }
         });
@@ -220,7 +220,7 @@ public class RetrofitClient {
             @Override
             public void onFailure(Call<MealResponse> call, Throwable throwable) {
                 Log.i(TAG ,"onFailureeee MealResponse: CallBack ");
-                homeNetworkCallback.onRandumMealFailureResult(throwable.getMessage());
+                homeNetworkCallback.onMealFailureResult(throwable.getMessage());
                 throwable.printStackTrace();
             }
         });

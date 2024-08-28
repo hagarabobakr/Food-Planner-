@@ -12,16 +12,16 @@ import com.example.foodplanner.model.database.data.MealPlanDao;
 
 import java.util.List;
 
-public class MealsLocalDataSource {
+public class MealsLocalDataSourceImpl {
     private static final String TAG = "MealsLocalDataSource";
     AppDatabase db;
     private final MealDao mealDao;
     private MealPlanDao mealPlanDao;
     Context context;
-    private static MealsLocalDataSource mealsLocalDataSource = null;
+    private static MealsLocalDataSourceImpl mealsLocalDataSourceImpl = null;
     private LiveData<List<MealsItem>> mealItemList;
     private LiveData<List<MealPlan>> mealPlanList;
-    public MealsLocalDataSource(Context _context) {
+    public MealsLocalDataSourceImpl(Context _context) {
         context =_context;
         db = Room.databaseBuilder(context.getApplicationContext(),
                 AppDatabase.class, "meals_database").build();
@@ -32,11 +32,11 @@ public class MealsLocalDataSource {
         mealPlanDao = db.mealPlanDao();
         mealPlanList = mealPlanDao.getAllPlanMeals();
     }
-    public static MealsLocalDataSource getInstance(Context context){
-        if(mealsLocalDataSource == null){
-            mealsLocalDataSource = new MealsLocalDataSource(context.getApplicationContext());
+    public static MealsLocalDataSourceImpl getInstance(Context context){
+        if(mealsLocalDataSourceImpl == null){
+            mealsLocalDataSourceImpl = new MealsLocalDataSourceImpl(context.getApplicationContext());
         }
-        return mealsLocalDataSource;
+        return mealsLocalDataSourceImpl;
     }
 
     public LiveData<List<MealsItem>> getAllMeals() {
@@ -58,6 +58,7 @@ public class MealsLocalDataSource {
 
     //PLAN
     public LiveData<List<MealPlan>> getAllPlanedMeals() {
+
         return mealPlanList;
     }
     public void insertPlanMeal(MealPlan meal) {

@@ -16,10 +16,10 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 
 import com.example.foodplanner.R;
-import com.example.foodplanner.model.database.MealsLocalDataSource;
+import com.example.foodplanner.model.database.MealsLocalDataSourceImpl;
 import com.example.foodplanner.model.database.data.MealPlan;
+import com.example.foodplanner.model.network.MealsRemoteDataSourceImpl;
 import com.example.foodplanner.presenter.home.plan.MyPlanPresenter;
-import com.example.foodplanner.view.home.fragments.fav.FavMealAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +66,7 @@ public class MyPlanFragment extends Fragment implements MyPlanView {
                 myPlanPresenter.getMealsByDate(selectedDay,selectedMonth,selectedYear);
             }
         });
-        myPlanPresenter = new MyPlanPresenter(this, MealsLocalDataSource.getInstance(getContext()));
+        myPlanPresenter = new MyPlanPresenter(this, MealsRemoteDataSourceImpl.getInstance(),MealsLocalDataSourceImpl.getInstance(this.getContext()));
     }
 
     @Override

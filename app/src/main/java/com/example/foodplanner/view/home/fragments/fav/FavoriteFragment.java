@@ -21,8 +21,9 @@ import android.widget.Toast;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.MealsItem;
-import com.example.foodplanner.model.database.MealsLocalDataSource;
+import com.example.foodplanner.model.database.MealsLocalDataSourceImpl;
 import com.example.foodplanner.model.database.data.MealPlan;
+import com.example.foodplanner.model.network.MealsRemoteDataSourceImpl;
 import com.example.foodplanner.presenter.home.fav.FavMealPresenter;
 import com.example.foodplanner.view.home.details.MealDetailsActivity;
 
@@ -66,7 +67,7 @@ public class FavoriteFragment extends Fragment implements OnFavRecipeClickListne
         // Initialize Adapters
         favAdapter = new FavMealAdapter(new ArrayList<>(),this,getContext());
 
-        presenter = new FavMealPresenter(this, MealsLocalDataSource.getInstance(getContext()));
+        presenter = new FavMealPresenter(this,  MealsRemoteDataSourceImpl.getInstance(),MealsLocalDataSourceImpl.getInstance(getContext()));
         presenter.getLocalMeals();
 
     }

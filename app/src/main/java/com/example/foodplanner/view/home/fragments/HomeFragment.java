@@ -22,7 +22,8 @@ import android.widget.Toast;
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.CategoriesItem;
 import com.example.foodplanner.model.data.MealsItem;
-import com.example.foodplanner.model.network.RetrofitClient;
+import com.example.foodplanner.model.database.MealsLocalDataSourceImpl;
+import com.example.foodplanner.model.network.MealsRemoteDataSourceImpl;
 import com.example.foodplanner.presenter.home.HomePresenter;
 import com.example.foodplanner.view.home.CategoryAdapter;
 import com.example.foodplanner.view.home.HomeView;
@@ -169,7 +170,7 @@ public class HomeFragment extends Fragment implements OnRecipeClickListner, Home
         populerMealsRecyclerView.setAdapter(populerMealAdapter);
 
         // Initialize Presenter
-        presenter = new HomePresenter(this, RetrofitClient.getRetrofitInstance());
+        presenter = new HomePresenter(this, MealsRemoteDataSourceImpl.getInstance(),MealsLocalDataSourceImpl.getInstance(this.getContext()));
         presenter.getRandumMeal();
         presenter.getMealsByFirstLitter("B");
         presenter.getCatigoryIteams();

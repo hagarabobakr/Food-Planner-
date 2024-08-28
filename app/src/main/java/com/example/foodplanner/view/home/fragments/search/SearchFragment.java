@@ -1,28 +1,6 @@
 package com.example.foodplanner.view.home.fragments.search;
 
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.SearchView;
-import android.widget.Toast;
-
-import com.example.foodplanner.R;
-import com.example.foodplanner.model.data.MealsItem;
-import com.example.foodplanner.model.network.RetrofitClient;
-import com.example.foodplanner.presenter.home.HomePresenter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SearchFragment extends Fragment {
   /*  RadioGroup radioGroup;

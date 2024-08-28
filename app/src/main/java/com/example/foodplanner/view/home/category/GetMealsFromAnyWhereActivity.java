@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.data.MealsItem;
-import com.example.foodplanner.model.network.RetrofitClient;
+import com.example.foodplanner.model.database.MealsLocalDataSourceImpl;
+import com.example.foodplanner.model.network.MealsRemoteDataSourceImpl;
 import com.example.foodplanner.presenter.home.getmeal.GetMealsFromAnyWherePresenter;
 import com.example.foodplanner.view.home.OnRecipeClickListner;
 import com.example.foodplanner.view.home.details.MealDetailsActivity;
@@ -26,7 +27,7 @@ public class GetMealsFromAnyWhereActivity extends AppCompatActivity implements O
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_meals_by_category);
-        presenter = new GetMealsFromAnyWherePresenter(this, RetrofitClient.getRetrofitInstance());
+        presenter = new GetMealsFromAnyWherePresenter(this, MealsRemoteDataSourceImpl.getInstance(), MealsLocalDataSourceImpl.getInstance(this));
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(MEAL)) {

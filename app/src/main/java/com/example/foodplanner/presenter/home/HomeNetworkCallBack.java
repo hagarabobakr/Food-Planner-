@@ -8,11 +8,8 @@ import java.util.List;
 public interface HomeNetworkCallBack {
     public void onRandumMealSuccessResult(List<MealsItem> meals);
     public void onPopulerMealSuccessResult(List<MealsItem> meals);
-    public void onRandumMealFailureResult(String errorMsg);
-    public void onCatigoryItemsSuccessResult(List<CategoriesItem> categoriesItems);
-    public void onCatigoryItemsFailureResult(String errorMsg);
+     public void onCatigoryItemsSuccessResult(List<CategoriesItem> categoriesItems);
     public void onMealDetailsSuccessResult(List<MealsItem> meals);
-    public void onMealDetailsFailureResult(String message);
 
     public void onGetCountrySuccessResult(List<MealsItem> meals);
 
@@ -23,4 +20,6 @@ public interface HomeNetworkCallBack {
     public void onGetMealsByFirstLitterSuccessResult(List<MealsItem> meals);
 
     public void onGetMealsByIngredientSuccessResult(List<MealsItem> meals);
+
+    public void onMealFailureResult(String message);
 }

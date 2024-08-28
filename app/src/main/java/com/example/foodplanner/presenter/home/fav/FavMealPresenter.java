@@ -1,26 +1,32 @@
 package com.example.foodplanner.presenter.home.fav;
 
 import com.example.foodplanner.model.data.MealsItem;
-import com.example.foodplanner.model.database.MealsLocalDataSource;
+import com.example.foodplanner.model.database.MealsLocalDataSourceImpl;
 import com.example.foodplanner.model.database.data.MealPlan;
+import com.example.foodplanner.model.network.MealsRemoteDataSourceImpl;
+import com.example.foodplanner.model.repo.MealsRepositoryImpl;
 import com.example.foodplanner.view.home.fragments.fav.FavView;
 
 public class FavMealPresenter {
 private FavView favView;
-private MealsLocalDataSource mealsLocalDataSource;
+//private MealsLocalDataSourceImpl mealsLocalDataSourceImpl;
+private MealsRepositoryImpl repository;
 
-    public FavMealPresenter(FavView favView, MealsLocalDataSource mealsLocalDataSource) {
+    public FavMealPresenter(FavView favView, MealsRemoteDataSourceImpl mealsRemoteDataSourceImpl, MealsLocalDataSourceImpl mealsLocalDataSource) {
         this.favView = favView;
-        this.mealsLocalDataSource = mealsLocalDataSource;
+        repository = MealsRepositoryImpl.getInstance(mealsLocalDataSource,mealsRemoteDataSourceImpl);
     }
     public void getLocalMeals(){
 
-        favView.showLocalData( mealsLocalDataSource.getAllMeals());
+        favView.showLocalData( repository.getAllMeals());
     }
     public  void removeMeal(MealsItem mealItemEntity){
-        mealsLocalDataSource.deleteMeal(mealItemEntity);
+       // mealsLocalDataSourceImpl.deleteMeal(mealItemEntity);
+        repository.deleteMeal(mealItemEntity);
     }
     public void insertPlanedMeal(MealPlan meal){
-        mealsLocalDataSource.insertPlanMeal(meal);
+
+        //mealsLocalDataSourceImpl.insertPlanMeal(meal);
+        repository.insertPlanMeal(meal);
     }
 }
