@@ -1,39 +1,51 @@
 package com.example.foodplanner.presenter.signup;
 
+import com.example.foodplanner.model.firebase.AuthRepository;
+import com.example.foodplanner.model.sharedpref.UserRepository;
 import com.example.foodplanner.view.signup.SignUpView;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUpPresenter {
-    private FirebaseAuth auth;
+    private AuthRepository authRepository;
+    private UserRepository userRepository;
     private SignUpView view;
 
-    public SignUpPresenter(SignUpView view) {
+    public SignUpPresenter(SignUpView view, AuthRepository authRepository, UserRepository userRepository) {
         this.view = view;
-        auth = FirebaseAuth.getInstance();
+        this.authRepository = authRepository;
+        this.userRepository = userRepository;
     }
+
     public void signUp(String email, String password) {
         view.showLoading();
-        auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(task -> {
-                    view.hideLoading();
-                    if (task.isSuccessful()) {
-                        view.onSignUpSuccess();
-                    } else {
-                        view.onSignUpFailure(task.getException().getMessage());
-                    }
-                });
+        authRepository.signUpWithEmail(email, password, new AuthRepository.AuthCallback() {
+            @Override
+            public void onSuccess() {
+                view.hideLoading();
+                view.onSignUpSuccess();
+            }
+
+            @Override
+            public void onFailure(String message) {
+                view.hideLoading();
+                view.onSignUpFailure(message);
+            }
+        });
     }
-    public void signUpWithGoogle(AuthCredential credential) {
+
+    public void signUpWithGoogle(String idToken) {
         view.showLoading();
-        auth.signInWithCredential(credential)
-                .addOnCompleteListener(task -> {
-                    view.hideLoading();
-                    if (task.isSuccessful()) {
-                        view.onSignUpSuccess();
-                    } else {
-                        view.onSignUpFailure(task.getException().getMessage());
-                    }
-                });
+        authRepository.signInWithGoogle(idToken, new AuthRepository.AuthCallback() {
+            @Override
+            public void onSuccess() {
+                view.hideLoading();
+                view.onSignUpSuccess();
+            }
+
+            @Override
+            public void onFailure(String message) {
+                view.hideLoading();
+                view.onSignUpFailure(message);
+            }
+        });
     }
 }

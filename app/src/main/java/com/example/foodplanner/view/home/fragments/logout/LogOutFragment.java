@@ -19,6 +19,7 @@ import com.example.foodplanner.model.database.AppDatabase;
 import com.example.foodplanner.model.database.BackupManager;
 import com.example.foodplanner.model.database.MealDao;
 import com.example.foodplanner.model.database.data.MealPlanDao;
+import com.example.foodplanner.model.sharedpref.UserRepository;
 import com.example.foodplanner.presenter.logout.LogOutPresenter;
 import com.example.foodplanner.view.WelcomeActivity;
 
@@ -45,7 +46,7 @@ public class LogOutFragment extends Fragment implements LogOutView {
         MealDao mealDao = database.getMealDao();
         MealPlanDao mealPlanDao = database.mealPlanDao();
         BackupManager backupModel = new BackupManager(mealDao, mealPlanDao);
-        logOutPresenter = new LogOutPresenter(backupModel, this);
+        logOutPresenter = new LogOutPresenter(new UserRepository(getContext()),backupModel, this);
 
         btnLogOut.setOnClickListener(v -> showConfirmDialog());
     }
@@ -59,13 +60,7 @@ public class LogOutFragment extends Fragment implements LogOutView {
                 .show();
     }
 
-    @Override
-    public void clearLoginState() {
-        SharedPreferences prefs = getActivity().getSharedPreferences("user_prefs", getContext().MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("is_logged_in", false);
-        editor.apply();
-    }
+
 
     @Override
     public void navigateToWelcomeActivity() {

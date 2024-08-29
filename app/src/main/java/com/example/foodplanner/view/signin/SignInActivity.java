@@ -1,7 +1,6 @@
 package com.example.foodplanner.view.signin;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,38 +10,39 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.Nullable;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.foodplanner.R;
-import com.example.foodplanner.model.database.AppDatabase;
-import com.example.foodplanner.model.database.MealDao;
-import com.example.foodplanner.model.database.data.MealPlanDao;
-import com.example.foodplanner.model.database.data.RestoreManager;
+import com.example.foodplanner.model.firebase.AuthRepository;
 import com.example.foodplanner.presenter.signin.SignInPresenter;
+import com.example.foodplanner.model.sharedpref.UserRepository;
 import com.example.foodplanner.view.home.HomeActivity;
 import com.example.foodplanner.view.signup.SignUpActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
 
 public class SignInActivity extends AppCompatActivity implements SignInView {
 
+    private SignInPresenter signInPresenter;
     private EditText etEmail, etPassword;
     private Button btnSignIn;
     private ProgressBar progressBar;
-    private SignInPresenter signInPresenter;
     private TextView signInClickabletxt;
     private ImageView google, facebook, twitter, github;
 
-    private static final int RC_SIGN_IN = 9001;
+    private ActivityResultLauncher<Intent> googleSignInLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        AuthRepository authRepository = new AuthRepository(this);
+        UserRepository userRepository = new UserRepository(this);
+
+        signInPresenter = new SignInPresenter(this, authRepository, userRepository);
 
         google = findViewById(R.id.google_icon);
         facebook = findViewById(R.id.facebook_icon);
@@ -53,15 +53,6 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
         btnSignIn = findViewById(R.id.btnSignIn);
         progressBar = findViewById(R.id.progressBarSign);
         signInClickabletxt = findViewById(R.id.signInClickabletxt);
-
-
-        AppDatabase database = AppDatabase.getInstance(this);
-        MealDao mealDao = database.getMealDao();
-        MealPlanDao mealPlanDao = database.mealPlanDao();
-        RestoreManager restoreModel = new RestoreManager(mealDao, mealPlanDao);
-
-
-        signInPresenter = new SignInPresenter(this, this, restoreModel);
 
         signInClickabletxt.setOnClickListener(view -> {
             Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
@@ -85,22 +76,22 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
             signInPresenter.signIn(email, password);
         });
 
-        google.setOnClickListener(v -> signInWithGoogle());
-    }
+        google.setOnClickListener(v -> googleSignInLauncher.launch(signInPresenter.getGoogleSignInClient().getSignInIntent()));
 
-    private void signInWithGoogle() {
-        Intent signInIntent = signInPresenter.getGoogleSignInClient().getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+        googleSignInLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK) {
+                Intent data = result.getData();
+                GoogleSignInAccount account = GoogleSignIn.getSignedInAccountFromIntent(data).getResult();
+                if (account != null) {
+                    signInPresenter.signInWithGoogle(account.getIdToken());
+                }
+            }
+        });
     }
 
     @Override
     public void showSignInSuccess() {
         Toast.makeText(this, "Sign in successful!", Toast.LENGTH_SHORT).show();
-        // Save login state
-        SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("is_logged_in", true);
-        editor.apply();
         startActivity(new Intent(SignInActivity.this, HomeActivity.class));
         finish();
     }
@@ -123,23 +114,5 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
     private boolean isEmailValid(String email) {
         String emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
         return email != null && email.matches(emailPattern);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                if (account != null) {
-                    signInPresenter.signInWithGoogle(account.getIdToken());
-                }
-            } catch (ApiException e) {
-                // Handle sign-in failure
-                Toast.makeText(this, "Google sign-in failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 }

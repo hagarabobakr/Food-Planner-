@@ -1,82 +1,58 @@
 package com.example.foodplanner.presenter.signin;
 
-import android.content.Context;
-
-import com.example.foodplanner.R;
-import com.example.foodplanner.model.database.data.RestoreManager;
+import com.example.foodplanner.model.firebase.AuthRepository;
+import com.example.foodplanner.model.sharedpref.UserRepository;
 import com.example.foodplanner.view.signin.SignInView;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SignInPresenter {
 
-    private FirebaseAuth mAuth;
-    private SignInView signInView;
-    private GoogleSignInClient mGoogleSignInClient;
-    private Context context;
-    private FirebaseFirestore db;
-    private RestoreManager restoreModel;
+    private AuthRepository authRepository;
+    private UserRepository userRepository;
+    private SignInView view;
 
-    public SignInPresenter(SignInView signInView, Context context, RestoreManager restoreModel) {
-        this.signInView = signInView;
-        this.context = context;
-        this.restoreModel = restoreModel;  // تهيئة RestoreModel
-        mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
-
-        // Initialize Google Sign-In options
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(context.getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
+    public SignInPresenter(SignInView view, AuthRepository authRepository, UserRepository userRepository) {
+        this.view = view;
+        this.authRepository = authRepository;
+        this.userRepository = userRepository;
     }
 
     public void signIn(String email, String password) {
-        if (email.isEmpty() || password.isEmpty()) {
-            signInView.showSignInFailure("Email or Password cannot be empty");
-            return;
-        }
+        view.showLoading();
+        authRepository.signInWithEmail(email, password, new AuthRepository.AuthCallback() {
+            @Override
+            public void onSuccess() {
+                view.hideLoading();
+                userRepository.saveLoginState(true, false);
+                view.showSignInSuccess();
+            }
 
-        signInView.showLoading();
-
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(task -> {
-                    signInView.hideLoading();
-                    if (task.isSuccessful()) {
-                        signInView.showSignInSuccess();
-                        restoreModel.restoreData();  // استدعاء وظيفة الاستعادة
-                    } else {
-                        String errorMessage = task.getException() != null ? task.getException().getMessage() : "Sign in failed";
-                        signInView.showSignInFailure(errorMessage);
-                    }
-                });
+            @Override
+            public void onFailure(String message) {
+                view.hideLoading();
+                view.showSignInFailure(message);
+            }
+        });
     }
 
     public void signInWithGoogle(String idToken) {
-        signInView.showLoading();
+        view.showLoading();
+        authRepository.signInWithGoogle(idToken, new AuthRepository.AuthCallback() {
+            @Override
+            public void onSuccess() {
+                view.hideLoading();
+                userRepository.saveLoginState(true, false);
+                view.showSignInSuccess();
+            }
 
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(task -> {
-                    signInView.hideLoading();
-                    if (task.isSuccessful()) {
-                        signInView.showSignInSuccess();
-                        restoreModel.restoreData();  // استدعاء وظيفة الاستعادة
-                    } else {
-                        String errorMessage = task.getException() != null ? task.getException().getMessage() : "Sign in failed";
-                        signInView.showSignInFailure(errorMessage);
-                    }
-                });
+            @Override
+            public void onFailure(String message) {
+                view.hideLoading();
+                view.showSignInFailure(message);
+            }
+        });
     }
-
     public GoogleSignInClient getGoogleSignInClient() {
-        return mGoogleSignInClient;
+        return authRepository.getGoogleSignInClient();
     }
 }

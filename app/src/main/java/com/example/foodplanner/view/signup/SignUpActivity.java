@@ -1,7 +1,6 @@
 package com.example.foodplanner.view.signup;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,8 +14,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.foodplanner.R;
+import com.example.foodplanner.model.firebase.AuthRepository;
 import com.example.foodplanner.presenter.signup.SignUpPresenter;
-import com.example.foodplanner.view.WelcomeActivity;
+import com.example.foodplanner.model.sharedpref.UserRepository;
 import com.example.foodplanner.view.home.HomeActivity;
 import com.example.foodplanner.view.signin.SignInActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -25,8 +25,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.GoogleAuthProvider;
 
 public class SignUpActivity extends AppCompatActivity implements SignUpView {
     private SignUpPresenter presenter;
@@ -37,6 +35,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
     private TextView signInClickabletxt;
     private ImageView google, facebook, twitter, github;
     private GoogleSignInClient mGoogleSignInClient;
+
     private static final int RC_SIGN_IN = 9001;
 
     @Override
@@ -44,7 +43,10 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        presenter = new SignUpPresenter(this);
+        AuthRepository authRepository = new AuthRepository(this);
+        UserRepository userRepository = new UserRepository(this);
+
+        presenter = new SignUpPresenter(this, authRepository, userRepository);
 
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
@@ -58,41 +60,15 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
         cbAgree = findViewById(R.id.cbAgree);
         signInClickabletxt = findViewById(R.id.signInClickabletxt);
 
-        signInClickabletxt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
-                startActivity(intent);
-            }
+        signInClickabletxt.setOnClickListener(view -> {
+            Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+            startActivity(intent);
         });
 
-        google.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signInWithGoogle();
-            }
-        });
-
-        facebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(SignUpActivity.this, "SOON", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        twitter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(SignUpActivity.this, "SOON", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        github.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(SignUpActivity.this, "SOON", Toast.LENGTH_SHORT).show();
-            }
-        });
+        google.setOnClickListener(view -> signInWithGoogle());
+        facebook.setOnClickListener(view -> Toast.makeText(SignUpActivity.this, "SOON", Toast.LENGTH_SHORT).show());
+        twitter.setOnClickListener(view -> Toast.makeText(SignUpActivity.this, "SOON", Toast.LENGTH_SHORT).show());
+        github.setOnClickListener(view -> Toast.makeText(SignUpActivity.this, "SOON", Toast.LENGTH_SHORT).show());
 
         btnSignUp.setOnClickListener(v -> {
             String email = etEmail.getText().toString().trim();
@@ -121,7 +97,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
             presenter.signUp(email, password);
         });
 
-        // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -143,26 +118,18 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account.getIdToken());
+                if (account != null) {
+                    presenter.signUpWithGoogle(account.getIdToken());
+                }
             } catch (ApiException e) {
                 Toast.makeText(this, "Google sign in failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private void firebaseAuthWithGoogle(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        presenter.signUpWithGoogle(credential);
-    }
-
     @Override
     public void onSignUpSuccess() {
         Toast.makeText(this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
-        SharedPreferences prefs = getSharedPreferences("user_prefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("is_logged_in", true);
-        editor.putBoolean("is_guest", false);
-        editor.apply();
         Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();
