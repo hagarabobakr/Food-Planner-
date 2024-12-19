@@ -4,6 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#E4E5E6</color>
     <color name="dark_gray">#E4E5E6</color>
+    <color name="trans">#7C2B678C</color>
     <color name="blue">#2B678C</color>
     <color name="havan">#F29E6D</color>
     <color name="dark_havan">#F2785C</color>

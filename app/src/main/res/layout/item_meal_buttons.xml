@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 tools:text="dfgdfgdfgfgdfgdfgfgdgfgdg"
                 android:layout_weight="1"
-                style="@style/textCardInRecyclerView"
+                style="@style/textCardInRecyclerViewMealOfTheDay"
                 android:layout_marginTop="8dp" />
             <ImageView
                 android:id="@+id/delet_ic"

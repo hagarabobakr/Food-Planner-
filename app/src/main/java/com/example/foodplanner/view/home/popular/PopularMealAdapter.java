@@ -32,7 +32,7 @@ public class PopularMealAdapter extends RecyclerView.Adapter<PopularMealAdapter.
     @Override
     public PopularMealAdapter.MealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View v =inflater.inflate(R.layout.home_card,parent,false);
+        View v =inflater.inflate(R.layout.most_popular_meal_card,parent,false);
         PopularMealAdapter.MealViewHolder vh = new PopularMealAdapter.MealViewHolder(v);
         return vh;
     }

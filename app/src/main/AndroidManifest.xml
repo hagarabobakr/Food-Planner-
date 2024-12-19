@@ -21,7 +21,7 @@
             android:name=".view.home.details.MealDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".view.home.HomeActivity"
+            android:name=".view.SplashActivity"
             android:exported="false" />
         <activity
             android:name=".view.signup.SignUpActivity"
@@ -36,7 +36,7 @@
             android:name=".view.home.fragments.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".view.SplashActivity"
+            android:name=".view.home.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

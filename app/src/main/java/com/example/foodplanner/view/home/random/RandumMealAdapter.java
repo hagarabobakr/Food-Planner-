@@ -17,7 +17,7 @@ import com.example.foodplanner.view.home.OnRecipeClickListner;
 
 import java.util.List;
 
-public class RandumMealAdapter extends RecyclerView.Adapter<RandumMealAdapter.MealViewHolder>{
+public class RandumMealAdapter extends RecyclerView.Adapter<RandumMealAdapter.MealViewHolder> {
     private List<MealsItem> meals;
     private OnRecipeClickListner listner;
     private Context context;
@@ -32,7 +32,7 @@ public class RandumMealAdapter extends RecyclerView.Adapter<RandumMealAdapter.Me
     @Override
     public MealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View v =inflater.inflate(R.layout.home_card,parent,false);
+        View v = inflater.inflate(R.layout.home_card, parent, false);
         RandumMealAdapter.MealViewHolder vh = new RandumMealAdapter.MealViewHolder(v);
         return vh;
     }
@@ -62,16 +62,17 @@ public class RandumMealAdapter extends RecyclerView.Adapter<RandumMealAdapter.Me
     }
 
     class MealViewHolder extends RecyclerView.ViewHolder {
-    // Define view components here
-    private ImageView imageView;
-    private TextView txtView;
-    public MealViewHolder(@NonNull View itemView) {
-    super(itemView);
-    // Initialize view components here
-        imageView = itemView.findViewById(R.id.recipe_img);
-        txtView = itemView.findViewById(R.id.description_txt);
-}
+        // Define view components here
+        private ImageView imageView;
+        private TextView txtView;
+
+        public MealViewHolder(@NonNull View itemView) {
+            super(itemView);
+            // Initialize view components here
+            imageView = itemView.findViewById(R.id.recipe_img);
+            txtView = itemView.findViewById(R.id.description_txt);
+        }
 
 
-            }
+    }
 }

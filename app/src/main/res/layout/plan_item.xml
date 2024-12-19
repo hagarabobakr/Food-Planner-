@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             tools:text="dfgdfgdfgfgdfgdfgfgdgfgdg"
             android:layout_gravity="start"
-            style="@style/textCardInRecyclerView"
+            style="@style/textCardInRecyclerViewMealOfTheDay"
             android:layout_marginTop="8dp" />
 
         <ImageView
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             tools:text="dfgdfgdfgfgdfgdfgfgdgfgdg"
             android:layout_gravity="center"
-            style="@style/textCardInRecyclerView"
+            style="@style/textCardInRecyclerViewMealOfTheDay"
             android:layout_marginTop="8dp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
