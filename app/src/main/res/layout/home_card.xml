@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="350dp"
+    android:layout_width="370dp"
     android:layout_height="wrap_content"
     app:cardCornerRadius="20dp"
     app:cardElevation="4dp"
@@ -20,18 +20,18 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/recipe_img"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="250dp"
                 android:scaleType="fitXY"
                 android:padding="12dp"
                 app:shapeAppearanceOverlay="@style/RoundedImageShape"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/backgrounds/scenic" />
+                tools:src="@tools:sample/backgrounds/scenic"/>
             <ImageView
                 android:id="@+id/fav_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_margin="22dp"
                 android:src="@drawable/heart_svgrepo_com__2_"
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,6 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="8dp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

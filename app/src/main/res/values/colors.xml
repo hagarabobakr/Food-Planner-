@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+    <color name="black">#2F2F2F</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="gray">#E4E5E6</color>
-    <color name="dark_gray">#E4E5E6</color>
-    <color name="trans">#7C2B678C</color>
+    <color name="gray">#59D8DBDB</color>
+    <color name="lightGray">#EFEFEF</color>
+    <color name="dark_gray">#D8DBDB</color>
+    <color name="trans">#4C2B678C</color>
+    <color name="transparent">#00FFFFFF</color>
     <color name="blue">#2B678C</color>
+    <color name="darkBlue">#255875</color>
     <color name="havan">#F29E6D</color>
     <color name="dark_havan">#F2785C</color>
     <color name="pink">#F25757</color>
