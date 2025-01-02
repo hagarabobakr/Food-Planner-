@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,6 +47,7 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+    AppBarConfiguration appBarConfiguration;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +61,7 @@ public class HomeActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(false); // إخفاء العنوان
+            actionBar.setDisplayShowTitleEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.hamburger_list_menu); // تعيين أيقونة المينيو
             actionBar.setDisplayHomeAsUpEnabled(true);  // إظهار زر القائمة
         }
@@ -67,7 +69,15 @@ public class HomeActivity extends AppCompatActivity {
 
 
         NavController navController = Navigation.findNavController ( this, R.id.nav_host_fragment);
+        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
+                .setOpenableLayout(drawerLayout)
+                .build();
         NavigationUI.setupWithNavController (navigationView, navController);
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            if (actionBar != null) {
+                actionBar.setTitle(destination.getLabel());
+            }
+        });
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -78,4 +88,5 @@ public class HomeActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     }

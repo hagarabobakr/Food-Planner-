@@ -5,4 +5,5 @@ public class IngredientsItem {
     public String strIngredient;
     public String strDescription;
     public Object strType;
+
 }

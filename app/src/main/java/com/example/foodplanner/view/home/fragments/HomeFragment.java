@@ -278,10 +278,11 @@ public class HomeFragment extends Fragment implements OnRecipeClickListner, Home
         for (String area : areas) {
             Chip chip = new Chip(getContext());
             chip.setText(area);
-            chip.setTextColor(R.color.chip_ripple_color);
             chip.setRippleColorResource(R.color.blue);
-            chip.setChipStrokeColorResource(R.color.blue);
+            chip.setChipStrokeColorResource(R.color.white);
             chip.setElevation(10);
+            chip.setChipCornerRadius(200f);
+            chip.setPadding(20,20,20,20);
             chip.setChipBackgroundColorResource(R.color.white);
             chip.setOnClickListener(v -> {
                 if (isGuest) {

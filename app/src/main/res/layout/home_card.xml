@@ -28,15 +28,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@tools:sample/backgrounds/scenic"/>
-            <ImageView
-                android:id="@+id/fav_icon"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_margin="22dp"
-                android:src="@drawable/heart_svgrepo_com__2_"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <TextView
                 android:id="@+id/description_txt"
                 style="@style/textCardInRecyclerViewMealOfTheDay"

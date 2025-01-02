@@ -20,7 +20,7 @@
     <string name="meal_image_desc">meal_image_desc</string>
     <string name="welcome_to_kitchen_buddy">Welcome to Kitchen Buddy! With our app, you can easily plan your weekly meals, explore a variety of categories, and get suggestions for new dishes. Save your favorite meals and enjoy access to them even without an internet connection.</string>
     <string name="name">Name:</string>
-    <string name="country">Countries:</string>
+    <string name="country">Countries</string>
     <string name="add_to_favorite">Add to favorite</string>
     <string name="ingredients">Ingredients:</string>
     <string name="steps">Steps:</string>

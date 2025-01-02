@@ -8,35 +8,35 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.foodplanner.view.home.fragments.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="Home" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.foodplanner.view.home.fragments.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="Profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.example.foodplanner.view.home.fragments.fav.FavoriteFragment"
-        android:label="fragment_favorite"
+        android:label="Favorite"
         tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/myPlanFragment"
         android:name="com.example.foodplanner.view.home.fragments.plan.MyPlanFragment"
-        android:label="fragment_my_plan"
+        android:label="My_plan"
         tools:layout="@layout/fragment_my_plan" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.foodplanner.view.home.fragments.SettingsFragment"
-        android:label="fragment_settings"
+        android:label="Settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.foodplanner.view.home.fragments.AboutFragment"
-        android:label="fragment_about"
+        android:label="About"
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/logOutFragment"
         android:name="com.example.foodplanner.view.home.fragments.logout.LogOutFragment"
-        android:label="fragment_log_out"
+        android:label="Log_out"
         tools:layout="@layout/fragment_log_out" />
 </navigation>
