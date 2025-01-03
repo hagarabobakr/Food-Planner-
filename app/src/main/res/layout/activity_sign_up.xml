@@ -31,21 +31,35 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
-
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:elevation="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/etFullName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvTitle"
+        app:layout_constraintTop_toTopOf="@+id/tvTitle"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/logo" />
 
 
     <!-- Title -->
     <TextView
         android:id="@+id/tvTitle"
         style="@style/textGetStart"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="36dp"
+        android:gravity="center"
         android:text="@string/sign_up"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:padding="35dp"
+        app:layout_constraintBottom_toBottomOf="@id/imageView"
+        android:textColor="@color/blue"
+        app:layout_constraintStart_toStartOf="@+id/etFullName"
         app:layout_constraintTop_toBottomOf="@+id/btnBack" />
     <ProgressBar
         android:id="@+id/progressBar"
@@ -64,11 +78,13 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
         android:layout_marginTop="24dp"
-        android:fontFamily="@font/cfsabinettademo"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_edittext"
+        android:fontFamily="@font/cfsabinettademo"
         android:hint="@string/enter_full_name"
         android:inputType="textPersonName"
         android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/etEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle" />

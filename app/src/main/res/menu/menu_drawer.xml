@@ -6,17 +6,13 @@
             android:icon="@drawable/home_ic"
             android:title="@string/home" />
         <item
-            android:id="@+id/profileFragment"
-            android:icon="@drawable/profile_2user"
-            android:title="@string/my_profile" />
-        <item
             android:id="@+id/favoriteFragment"
             android:icon="@drawable/save_ic"
-            android:title="My favorite" />
+            android:title="@string/my_favorite" />
         <item
             android:id="@+id/myPlanFragment"
             android:icon="@drawable/work_plan_ic"
-            android:title="My plan" />
+            android:title="@string/my_plan" />
         <item
             android:id="@+id/settingsFragment"
             android:icon="@drawable/settings_ic"

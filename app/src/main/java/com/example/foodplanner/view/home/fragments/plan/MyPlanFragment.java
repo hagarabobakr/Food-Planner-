@@ -22,6 +22,7 @@ import com.example.foodplanner.model.database.data.MealPlan;
 import com.example.foodplanner.presenter.home.plan.MyPlanPresenter;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -56,6 +57,9 @@ public class MyPlanFragment extends Fragment implements MyPlanView,OnPlanedRecip
         planMealAdapter = new PlanMealAdapter(new ArrayList<>(),getContext(),this);
         recyclerView.setAdapter(planMealAdapter);
         calendarView = view.findViewById(R.id.calendarView);
+        Calendar calendar = Calendar.getInstance();
+        calendarView.setMinDate(calendar.getTimeInMillis());
+
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
@@ -63,15 +67,16 @@ public class MyPlanFragment extends Fragment implements MyPlanView,OnPlanedRecip
                 selectedMonth = month + 1; // month is 0-based
                 selectedDay = dayOfMonth;
 
-                myPlanPresenter.getMealsByDate(selectedDay,selectedMonth,selectedYear);
+                myPlanPresenter.getMealsByDate(selectedDay, selectedMonth, selectedYear);
             }
         });
+
         myPlanPresenter = new MyPlanPresenter(this, MealsLocalDataSource.getInstance(getContext()));
     }
 
     @Override
     public void showLocalData(LiveData<List<MealPlan>> allPlanedMeals) {
-
+        // Implementation here if needed
     }
 
     @Override
@@ -80,18 +85,18 @@ public class MyPlanFragment extends Fragment implements MyPlanView,OnPlanedRecip
             @Override
             public void onChanged(@Nullable List<MealPlan> mealPlans) {
                 if (mealPlans != null && !mealPlans.isEmpty()) {
-                    planMealAdapter = new PlanMealAdapter(mealPlans,getContext(),MyPlanFragment.this);
-                    recyclerView.setAdapter(planMealAdapter);
-                    planMealAdapter.notifyDataSetChanged();
-
+                    planMealAdapter.setData(mealPlans); // Update adapter's data
+                } else {
+                    // تفريغ RecyclerView عند عدم وجود وجبات مخططة
+                    planMealAdapter.setData(new ArrayList<>());
                 }
+                planMealAdapter.notifyDataSetChanged(); // Notify adapter of data change
             }
         });
     }
 
     @Override
     public void onPlanedRecipeClickListner(MealsItem mealItem) {
-
+        // Handle recipe click event here
     }
 }
-

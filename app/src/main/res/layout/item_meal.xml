@@ -5,41 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
+    app:cardCornerRadius="20dp"
+    android:hapticFeedbackEnabled="true"
+    app:cardUseCompatPadding="true"
     app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center"
         android:padding="8dp">
-        <FrameLayout
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/meal_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/favorite_svgrepo_com"
-                />
-
-            <ImageView
-                android:id="@+id/meal_image"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:contentDescription="@string/meal_image_desc"
-                android:scaleType="centerCrop"
-                tools:srcCompat="@drawable/ic_launcher_foreground" />
-        </FrameLayout>
-
-
+            android:layout_height="100dp"
+            app:shapeAppearanceOverlay="@style/RoundedImageShape"
+            android:contentDescription="@string/meal_image_desc"
+            android:scaleType="centerCrop"
+            tools:srcCompat="@drawable/ic_launcher_background" />
 
         <TextView
             android:id="@+id/meal_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="dfgdfgdfgfgdfgdfgfgdgfgdg"
-            android:layout_gravity="center"
             style="@style/textCardInRecyclerViewMealOfTheDay"
-            android:layout_marginTop="8dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
+            tools:text="dfgdfgdfgfgdfgdfgfgdgfgdg" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

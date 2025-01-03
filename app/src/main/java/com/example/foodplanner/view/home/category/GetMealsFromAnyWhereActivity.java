@@ -31,7 +31,7 @@ public class GetMealsFromAnyWhereActivity extends AppCompatActivity implements O
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(MEAL)) {
             List<MealsItem> meals = (List<MealsItem>) intent.getSerializableExtra(MEAL);
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3 );
             recyclerView.setLayoutManager(gridLayoutManager);
 
             MealsAdapter adapter = new MealsAdapter(meals,this);

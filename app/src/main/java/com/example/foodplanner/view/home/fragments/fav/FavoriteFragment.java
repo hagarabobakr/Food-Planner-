@@ -1,6 +1,7 @@
 package com.example.foodplanner.view.home.fragments.fav;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -24,6 +25,7 @@ import com.example.foodplanner.model.data.MealsItem;
 import com.example.foodplanner.model.source.MealsLocalDataSource;
 import com.example.foodplanner.model.database.data.MealPlan;
 import com.example.foodplanner.presenter.home.fav.FavMealPresenter;
+import com.example.foodplanner.view.home.details.FavMealDetailsActivity;
 import com.example.foodplanner.view.home.details.MealDetailsActivity;
 
 import java.io.Serializable;
@@ -80,9 +82,21 @@ public class FavoriteFragment extends Fragment implements OnFavRecipeClickListne
     @Override
     public void onDeletIcClickListner(MealsItem mealItem) {
         Log.i(TAG, "onDeletIcClickListner: ");
-        presenter.removeMeal(mealItem);
-        favAdapter.notifyDataSetChanged();
+
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Confirm Deletion")
+                .setMessage("Are you sure you want to delete this meal?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        presenter.removeMeal(mealItem);
+                        favAdapter.notifyDataSetChanged();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
+
 
     @Override
     public void onAddToPlanClickListner(MealsItem mealItem) {
@@ -99,6 +113,7 @@ public class FavoriteFragment extends Fragment implements OnFavRecipeClickListne
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
         );
+        datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
         datePickerDialog.show();
     }
     private void showMealTypeDialog(MealsItem mealItem, String date) {
@@ -129,47 +144,6 @@ public class FavoriteFragment extends Fragment implements OnFavRecipeClickListne
                 , Toast.LENGTH_LONG).show();
         // You can also add code here to save this data or perform other actions
     }
-
-
-
-
-       /* // Create an AlertDialog.Builder
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Choose an action");
-        builder.setMessage("What would you like to do with this meal?");
-
-        // Add "View Details" button
-        builder.setPositiveButton("View Details", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Show meal details
-                showMealDetails(mealItem);
-            }
-        });
-
-        // Add "Delete" button
-        builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Delete the meal
-                deleteMeal(mealItem);
-            }
-        });
-
-        // Add "Cancel" button
-        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Dismiss the dialog
-                dialog.dismiss();
-            }
-        });
-
-        // Create and show the AlertDialog
-        AlertDialog dialog = builder.create();
-        dialog.show();*/
-
-
     @Override
     public void showLocalData(LiveData<List<MealsItem>> allMeals) {
 
@@ -184,7 +158,7 @@ public class FavoriteFragment extends Fragment implements OnFavRecipeClickListne
     }
     // Method to show meal details
     private void showMealDetails(MealsItem mealItem) {
-        Intent intent = new Intent(getContext(), MealDetailsActivity.class);
+        Intent intent = new Intent(getContext(), FavMealDetailsActivity.class);
         intent.putExtra(MEAL, (Serializable) mealItem);
         startActivity(intent);
     }

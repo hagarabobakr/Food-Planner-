@@ -62,8 +62,8 @@ public class HomeActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.hamburger_list_menu); // تعيين أيقونة المينيو
-            actionBar.setDisplayHomeAsUpEnabled(true);  // إظهار زر القائمة
+            actionBar.setHomeAsUpIndicator(R.drawable.hamburger_list_menu);
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
 
@@ -76,6 +76,7 @@ public class HomeActivity extends AppCompatActivity {
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if (actionBar != null) {
                 actionBar.setTitle(destination.getLabel());
+                toolbar.setTitleTextAppearance(this, R.style.CustomToolbarTitle);
             }
         });
     }

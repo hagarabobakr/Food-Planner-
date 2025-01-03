@@ -23,6 +23,7 @@
                 android:background="@drawable/search_view_background"
                 android:iconifiedByDefault="false"
                 android:padding="8dp"
+                android:layout_marginTop="10dp"
                 android:hint="find your fav food"
                 android:queryHint="@string/search_hint"
                 app:queryBackground="@android:color/transparent"
@@ -41,7 +42,7 @@
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="25dp"
+                android:layout_margin="15dp"
                 />
             <TextView
                 android:id="@+id/categories_label"
@@ -61,7 +62,7 @@
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="25dp"
+                android:layout_margin="15dp"
                 />
             <TextView
                 android:id="@+id/random_meals_label"
@@ -81,7 +82,7 @@
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="25dp"
+                android:layout_margin="15dp"
                 />
 
             <TextView
@@ -100,7 +101,7 @@
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="25dp"
+                android:layout_margin="15dp"
                 />
             <TextView
                 android:id="@+id/countries_label"
@@ -114,7 +115,7 @@
                 android:id="@+id/chipGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_margin="16dp"
                 app:chipSpacing="350dp"
                 />
         </LinearLayout>

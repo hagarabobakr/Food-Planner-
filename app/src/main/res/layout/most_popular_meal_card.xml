@@ -17,7 +17,7 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/recipe_img"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="140dp"
             android:scaleType="fitXY"
             android:padding="8dp"
             app:shapeAppearanceOverlay="@style/RoundedImageShape"

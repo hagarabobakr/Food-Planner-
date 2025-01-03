@@ -21,13 +21,16 @@ import java.util.List;
 
 public class PlanMealAdapter extends RecyclerView.Adapter<PlanMealAdapter.PlanMealViewHolder>{
     private Context context;
-    private final List<MealPlan> planMealsList;
+    private  List<MealPlan> planMealsList;
     private OnPlanedRecipeClickListner onPlanedRecipeClickListner;
 
     public PlanMealAdapter(List<MealPlan> planMealsList, Context context,OnPlanedRecipeClickListner onPlanedRecipeClickListner) {
         this.planMealsList = planMealsList;
         this.context = context;
         this.onPlanedRecipeClickListner = onPlanedRecipeClickListner;
+    }
+    public void setData(List<MealPlan> newMealPlans) {
+        this.planMealsList = newMealPlans;
     }
 
     @NonNull
@@ -44,8 +47,8 @@ public class PlanMealAdapter extends RecyclerView.Adapter<PlanMealAdapter.PlanMe
         MealPlan mealPlan = planMealsList.get(position);
         Glide.with(context)
                 .load(mealPlan.getStrMealThumb())
-                .placeholder(R.drawable.placeholder_image)
-                .error(R.drawable.error_image)
+                .placeholder(R.drawable.placeholder_img)
+                .error(R.drawable.placeholder_img)
                 .into(holder.mealImage);
 
         holder.mealName.setText(mealPlan.getStrMeal());

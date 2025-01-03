@@ -76,6 +76,7 @@ public class SignInPresenter {
                 });
     }
 
+
     public GoogleSignInClient getGoogleSignInClient() {
         return mGoogleSignInClient;
     }

@@ -42,8 +42,8 @@ public class RandumMealAdapter extends RecyclerView.Adapter<RandumMealAdapter.Me
         MealsItem meal = meals.get(position);
         Glide.with(context)
                 .load(meal.getStrMealThumb())
-                .placeholder(R.drawable.placeholder_image)
-                .error(R.drawable.error_image)
+                .placeholder(R.drawable.placeholder_img)
+                .error(R.drawable.placeholder_img)
                 .into(holder.imageView);
 
         holder.txtView.setText(meal.getStrMeal());

@@ -3,6 +3,7 @@ package com.example.foodplanner.view.home.details;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,7 +13,9 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import android.util.Pair;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,9 +31,8 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import java.util.ArrayList;
 import java.util.List;
 
-public class MealDetailsActivity extends AppCompatActivity implements MealDetailsView {
+public class FavMealDetailsActivity extends AppCompatActivity implements MealDetailsView {
     private static final String MEAL = "meal";
-
     private ImageView image;
     private TextView name, country, details;
     private RecyclerView recyclerView;
@@ -38,13 +40,11 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
     private Button addToFav;
     private MealDetailsPresenter presenter;
     MealsLocalDataSource localDataSource;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_meal_details);
-
+        setContentView(R.layout.activity_fav_meal_details);
         localDataSource = new MealsLocalDataSource(this);
         presenter = new MealDetailsPresenter(this, localDataSource);
 
@@ -57,7 +57,6 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         recyclerView = findViewById(R.id.recyclerView);
         Intent intent = getIntent();
         MealsItem meal = (MealsItem) intent.getSerializableExtra(MEAL);
-
         if (meal != null) {
             Glide.with(this)
                     .load(meal.getStrMealThumb())
@@ -105,33 +104,26 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
             addToFav.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    presenter.addMealToFavorites(meal);
                     showFavoriteAddedMessage();
-                    addToFav.setBackgroundColor(Color.DKGRAY);
-                    addToFav.setEnabled(false);
                 }
             });
-    }
-    }
-
-        // Helper method to extract YouTube video ID from URL
-        public String extractYouTubeVideoId(String url) {
-            String videoId = "";
-            if (url != null && url.contains("v=")) {
-                int startIndex = url.indexOf("v=") + 2;
-                int endIndex = url.indexOf("&", startIndex);
-                if (endIndex == -1) {
-                    endIndex = url.length();
-                }
-                videoId = url.substring(startIndex, endIndex);
-            }
-            return videoId;
         }
+    }
+    public String extractYouTubeVideoId(String url) {
+        String videoId = "";
+        if (url != null && url.contains("v=")) {
+            int startIndex = url.indexOf("v=") + 2;
+            int endIndex = url.indexOf("&", startIndex);
+            if (endIndex == -1) {
+                endIndex = url.length();
+            }
+            videoId = url.substring(startIndex, endIndex);
+        }
+        return videoId;
+    }
 
 
     public void showFavoriteAddedMessage() {
-        Toast.makeText(this, "Meal added to favorites!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "This meal is already added to favorites!", Toast.LENGTH_SHORT).show();
     }
-
-
 }

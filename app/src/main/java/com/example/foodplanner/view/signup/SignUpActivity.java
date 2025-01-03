@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodplanner.R;
 import com.example.foodplanner.presenter.signup.SignUpPresenter;
 import com.example.foodplanner.view.WelcomeActivity;
@@ -57,7 +58,8 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
         github = findViewById(R.id.github_icon);
         cbAgree = findViewById(R.id.cbAgree);
         signInClickabletxt = findViewById(R.id.signInClickabletxt);
-
+        LottieAnimationView animationView = findViewById(R.id.imageView);
+        animationView.playAnimation();
         signInClickabletxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

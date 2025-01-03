@@ -1,59 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@color/white">
+    android:padding="30dp">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/language"
+        app:layout_constraintBottom_toBottomOf="@+id/tvChangeLanguage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialDivider" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvContactSupport"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvContactSupport"
+        android:src="@drawable/customer_service_help" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvShareApp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvShareApp"
+        android:src="@drawable/share" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/cbNotifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enable Notifications"
-        android:textSize="16sp"
-        android:textColor="@color/black" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/enable_notifications"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <CheckBox
         android:id="@+id/cbDarkMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enable Dark Mode"
-        android:textSize="16sp"
+        android:layout_marginStart="20dp"
+        android:text="@string/enable_dark_mode"
         android:textColor="@color/black"
-        android:layout_marginTop="8dp" />
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cbNotifications" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/materialDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="25dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cbDarkMode" />
 
     <TextView
         android:id="@+id/tvChangeLanguage"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change Language"
-        android:textSize="16sp"
-        android:textColor="@color/black"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackground"
         android:padding="8dp"
-        android:background="?attr/selectableItemBackground" />
+        android:text="@string/change_language"
+        android:textStyle="normal"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/materialDivider" />
 
     <TextView
         android:id="@+id/tvContactSupport"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Contact Support"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackground"
         android:padding="8dp"
-        android:background="?attr/selectableItemBackground" />
+        android:text="@string/contact_support"
+        android:textStyle="normal"
+        app:layout_constraintStart_toEndOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/tvChangeLanguage" />
 
     <TextView
         android:id="@+id/tvShareApp"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Share App"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackground"
         android:padding="8dp"
-        android:background="?attr/selectableItemBackground" />
+        android:text="@string/share_app"
+        android:textStyle="normal"
+        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintTop_toBottomOf="@+id/tvContactSupport" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

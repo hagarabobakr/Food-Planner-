@@ -4,8 +4,14 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@color/white">
+    android:padding="16dp">
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvAppName"
@@ -13,6 +19,7 @@
         android:layout_height="wrap_content"
         style="@style/textAppName"
         android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:text="@string/app_name" />
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -34,7 +41,9 @@
                 android:layout_height="wrap_content"
                 style="@style/textTitleInHome"
                 android:layout_marginTop="8dp"
-                android:text="Food Planner is an Android app that helps users plan their weekly meals, view meal categories, and save favorite meals for offline browsing. Powered by https://themealdb.com/api.php" />
+                android:textStyle="normal"
+                android:text="Food Planner is an Android app that helps users plan their weekly meals, view meal categories, and save favorite meals for offline browsing.
+                Powered by https://themealdb.com/api.php" />
 
             <TextView
                 android:id="@+id/tvContactInfo"

@@ -15,6 +15,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.database.AppDatabase;
 import com.example.foodplanner.model.database.MealDao;
@@ -53,8 +54,8 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
         btnSignIn = findViewById(R.id.btnSignIn);
         progressBar = findViewById(R.id.progressBarSign);
         signInClickabletxt = findViewById(R.id.signInClickabletxt);
-
-
+        LottieAnimationView animationView = findViewById(R.id.imageView);
+        animationView.playAnimation();
         AppDatabase database = AppDatabase.getInstance(this);
         MealDao mealDao = database.getMealDao();
         MealPlanDao mealPlanDao = database.mealPlanDao();

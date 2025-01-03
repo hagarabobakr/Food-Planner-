@@ -16,9 +16,8 @@ import com.example.foodplanner.R;
 import java.util.List;
 
 public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.ViewHolder> {
-    private final List<String> ingredients;
-
-    public IngredientsAdapter(List<String> ingredients) {
+    private final List<Pair<String, String>> ingredients;
+    public IngredientsAdapter(List<Pair<String, String>> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -32,10 +31,14 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.ingredientText.setText(ingredients.get(position));
-        String imageUrl = "https://www.themealdb.com/images/ingredients/" + ingredients.get(position) + ".png";
+        Pair<String, String> ingredientAndMeasurement = ingredients.get(position);
+        holder.ingredientText.setText(" :"+ingredientAndMeasurement.first);
+        holder.ingredientAmount.setText(ingredientAndMeasurement.second);
+        String imageUrl = "https://www.themealdb.com/images/ingredients/" + ingredientAndMeasurement.first + ".png";
         Glide.with(holder.itemView.getContext())
                 .load(imageUrl)
+                .placeholder(R.drawable.food_hor_mok_svgrepo_com)
+                .error(R.drawable.food_hor_mok_svgrepo_com)
                 .into(holder.ingredientImage);
 
     }
@@ -47,11 +50,13 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView ingredientText;
+        private final TextView ingredientAmount;
         private final ImageView ingredientImage;
 
         public ViewHolder(View view) {
             super(view);
             ingredientText = view.findViewById(R.id.ingredient_text);
+            ingredientAmount = view.findViewById(R.id.Ingredients_amounts);
             ingredientImage = view.findViewById(R.id.imageView3);
         }
     }
