@@ -32,7 +32,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Pair<String, String> ingredientAndMeasurement = ingredients.get(position);
-        holder.ingredientText.setText(" :"+ingredientAndMeasurement.first);
+        holder.ingredientText.setText(ingredientAndMeasurement.first+" :");
         holder.ingredientAmount.setText(ingredientAndMeasurement.second);
         String imageUrl = "https://www.themealdb.com/images/ingredients/" + ingredientAndMeasurement.first + ".png";
         Glide.with(holder.itemView.getContext())
